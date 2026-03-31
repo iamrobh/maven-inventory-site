@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark vs Light Comparison</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'DM Sans', system-ui, sans-serif; background: #1a1a2e; color: #e2e8f0; }
+
+    .tabs {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; background: #0f172a; border-bottom: 1px solid #334155;
+    }
+    .tab {
+      flex: 1; padding: 1rem; text-align: center; cursor: pointer;
+      font-weight: 600; font-size: 0.95rem; color: #94a3b8;
+      transition: all 0.2s; border-bottom: 2px solid transparent;
+    }
+    .tab:hover { color: #f1f5f9; }
+    .tab.active { color: #14B8A6; border-bottom-color: #14B8A6; }
+
+    .version { display: none; }
+    .version.active { display: block; }
+
+    /* ── Shared editorial styles ── */
+    .site-nav {
+      padding: 0 2rem; height: 64px; display: flex; align-items: center;
+      justify-content: space-between; max-width: 1120px; margin: 0 auto;
+    }
+    .site-nav .logo { font-family: 'DM Serif Display', serif; font-size: 1.3rem; text-decoration: none; }
+    .site-nav .logo span { color: #14B8A6; }
+    .site-nav .links { display: flex; gap: 2rem; list-style: none; font-size: 0.9rem; }
+    .site-nav .links a { text-decoration: none; transition: color 0.2s; }
+
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 2rem; }
+
+    .hero-section { padding: 10rem 2rem 7rem; text-align: center; max-width: 1120px; margin: 0 auto; }
+    .hero-badge {
+      display: inline-block; padding: 0.4rem 1.25rem; border-radius: 100px;
+      font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em; margin-bottom: 2.5rem;
+    }
+    .hero-section h1 {
+      font-family: 'DM Serif Display', serif; font-size: 4.2rem; font-weight: 400;
+      line-height: 1.08; margin-bottom: 1.5rem; letter-spacing: -0.01em;
+    }
+    .hero-section .subtitle {
+      font-size: 1.15rem; max-width: 620px; margin: 0 auto 3rem;
+      line-height: 1.7; font-weight: 300;
+    }
+    .hero-ctas { display: flex; gap: 1rem; justify-content: center; margin-bottom: 4.5rem; }
+    .btn {
+      display: inline-block; padding: 0.85rem 2.25rem; border-radius: 6px;
+      text-decoration: none; font-weight: 600; font-size: 0.95rem;
+    }
+
+    .teal-rule { border: none; border-top: 1px solid rgba(20,184,166,0.3); margin: 0; }
+
+    .stats-row {
+      display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap; padding-top: 3rem;
+    }
+    .stat { text-align: center; }
+    .stat .num { font-family: 'DM Serif Display', serif; font-size: 2.5rem; display: block; line-height: 1.2; }
+    .stat .lbl {
+      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500;
+    }
+
+    .section-lbl {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; margin-bottom: 1.5rem;
+    }
+
+    .problem-section { padding: 8rem 2rem; max-width: 1120px; margin: 0 auto; }
+    .problem-section h2 {
+      font-family: 'DM Serif Display', serif; font-size: 2.5rem; font-weight: 400;
+      line-height: 1.15; margin-bottom: 1.5rem;
+    }
+    .problem-section p.body { font-size: 1.05rem; line-height: 1.8; font-weight: 300; max-width: 700px; }
+
+    .features-section { padding: 6rem 2rem; max-width: 1120px; margin: 0 auto; }
+    .feature-row {
+      display: grid; grid-template-columns: 1fr 1.4fr; gap: 3rem;
+      padding: 2.25rem 0; align-items: start;
+    }
+    .feature-row .fname { font-family: 'DM Serif Display', serif; font-size: 1.6rem; }
+    .feature-row .fdesc { font-size: 1rem; line-height: 1.7; font-weight: 300; }
+
+    .sep { margin: 0 2rem; max-width: 1120px; margin-left: auto; margin-right: auto; }
+  </style>
+</head>
+<body>
+
+  <div class="tabs">
+    <div class="tab active" onclick="showVersion('dark')">A — Dark Editorial</div>
+    <div class="tab" onclick="showVersion('light')">B — Light Editorial</div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- DARK VERSION -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="version active" id="dark" style="background: #0f172a; color: #cbd5e1; min-height: 100vh;">
+
+    <nav style="background: rgba(15,23,42,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(51,65,85,0.5);">
+      <div class="site-nav">
+        <a class="logo" style="color: #f1f5f9;">Maven <span>Inventory</span></a>
+        <ul class="links">
+          <li><a style="color: #94a3b8;">Features</a></li>
+          <li><a style="color: #94a3b8;">Pricing</a></li>
+          <li><a style="color: #14B8A6; font-weight: 500;">Sign In</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="hero-section">
+      <span class="hero-badge" style="border: 1px solid rgba(20,184,166,0.3); color: #14B8A6;">Multi-Channel Inventory Management</span>
+      <h1 style="color: #f1f5f9;">Accurate to the unit.</h1>
+      <p class="subtitle" style="color: #94a3b8;">Multi-channel inventory management, accurate cost of goods sold, and AI-powered demand forecasting for brands that run on data.</p>
+      <div class="hero-ctas">
+        <a class="btn" style="background: #14B8A6; color: #020617;">Start Free Trial</a>
+        <a class="btn" style="border: 1px solid #475569; color: #cbd5e1;">See Pricing</a>
+      </div>
+      <hr class="teal-rule">
+      <div class="stats-row">
+        <div class="stat"><span class="num" style="color: #f1f5f9;">Unlimited</span><span class="lbl" style="color: #64748b;">Users</span></div>
+        <div class="stat"><span class="num" style="color: #f1f5f9;">Unlimited</span><span class="lbl" style="color: #64748b;">Products</span></div>
+        <div class="stat"><span class="num" style="color: #f1f5f9;">Unlimited</span><span class="lbl" style="color: #64748b;">Locations</span></div>
+        <div class="stat"><span class="num" style="color: #14B8A6;">$99/mo</span><span class="lbl" style="color: #64748b;">Starting Price</span></div>
+      </div>
+    </div>
+
+    <hr class="sep" style="border: none; border-top: 1px solid #334155;">
+
+    <div class="problem-section">
+      <p class="section-lbl" style="color: #64748b;">The Problem</p>
+      <h2 style="color: #f1f5f9;">Most inventory tools were built for a different era.</h2>
+      <p class="body" style="color: #94a3b8;">They were designed for warehouses and wholesale, not modern e-commerce. You need multi-channel visibility, accurate COGS, and intelligent forecasting — not just a spreadsheet replacement.</p>
+    </div>
+
+    <hr class="sep" style="border: none; border-top: 1px solid #334155;">
+
+    <div class="features-section">
+      <p class="section-lbl" style="color: #64748b;">Capabilities</p>
+      <div class="feature-row" style="border-top: 1px solid #334155;">
+        <h3 class="fname" style="color: #f1f5f9;">Multi-Channel Sync</h3>
+        <p class="fdesc" style="color: #94a3b8;">Connect Shopify, Amazon, and more. Inventory levels stay accurate across every channel, automatically.</p>
+      </div>
+      <div class="feature-row" style="border-top: 1px solid #334155;">
+        <h3 class="fname" style="color: #f1f5f9;">Accurate Cost of Goods</h3>
+        <p class="fdesc" style="color: #94a3b8;">Accurate cost of goods sold for every unit, every order. FIFO and average costing so you always know your true margins.</p>
+      </div>
+      <div class="feature-row" style="border-top: 1px solid #334155;">
+        <h3 class="fname" style="color: #f1f5f9;">Demand Forecasting</h3>
+        <p class="fdesc" style="color: #94a3b8;">Moving and seasonal averages plus AI-powered models generate reorder and transfer recommendations.</p>
+      </div>
+      <div class="feature-row" style="border-top: 1px solid #334155; border-bottom: 1px solid #334155;">
+        <h3 class="fname" style="color: #f1f5f9;">AI Agent</h3>
+        <p class="fdesc" style="color: #94a3b8;">Ask questions and trigger actions in plain language. Get answers about your inventory without digging through reports.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- LIGHT VERSION -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="version" id="light" style="background: #ffffff; color: #1e293b; min-height: 100vh;">
+
+    <nav style="background: rgba(255,255,255,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid #e2e8f0;">
+      <div class="site-nav">
+        <a class="logo" style="color: #0f172a;">Maven <span>Inventory</span></a>
+        <ul class="links">
+          <li><a style="color: #64748b;">Features</a></li>
+          <li><a style="color: #64748b;">Pricing</a></li>
+          <li><a style="color: #14B8A6; font-weight: 500;">Sign In</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="hero-section">
+      <span class="hero-badge" style="border: 1px solid rgba(20,184,166,0.4); color: #0d9488; background: rgba(20,184,166,0.06);">Multi-Channel Inventory Management</span>
+      <h1 style="color: #0f172a;">Accurate to the unit.</h1>
+      <p class="subtitle" style="color: #64748b;">Multi-channel inventory management, accurate cost of goods sold, and AI-powered demand forecasting for brands that run on data.</p>
+      <div class="hero-ctas">
+        <a class="btn" style="background: #0f172a; color: #f8fafc;">Start Free Trial</a>
+        <a class="btn" style="border: 1.5px solid #cbd5e1; color: #0f172a;">See Pricing</a>
+      </div>
+      <hr style="border: none; border-top: 1px solid #e2e8f0;">
+      <div class="stats-row">
+        <div class="stat"><span class="num" style="color: #0f172a;">Unlimited</span><span class="lbl" style="color: #94a3b8;">Users</span></div>
+        <div class="stat"><span class="num" style="color: #0f172a;">Unlimited</span><span class="lbl" style="color: #94a3b8;">Products</span></div>
+        <div class="stat"><span class="num" style="color: #0f172a;">Unlimited</span><span class="lbl" style="color: #94a3b8;">Locations</span></div>
+        <div class="stat"><span class="num" style="color: #14B8A6;">$99/mo</span><span class="lbl" style="color: #94a3b8;">Starting Price</span></div>
+      </div>
+    </div>
+
+    <hr class="sep" style="border: none; border-top: 1px solid #e2e8f0;">
+
+    <div class="problem-section">
+      <p class="section-lbl" style="color: #94a3b8;">The Problem</p>
+      <h2 style="color: #0f172a;">Most inventory tools were built for a different era.</h2>
+      <p class="body" style="color: #64748b;">They were designed for warehouses and wholesale, not modern e-commerce. You need multi-channel visibility, accurate COGS, and intelligent forecasting — not just a spreadsheet replacement.</p>
+    </div>
+
+    <hr class="sep" style="border: none; border-top: 1px solid #e2e8f0;">
+
+    <div class="features-section">
+      <p class="section-lbl" style="color: #94a3b8;">Capabilities</p>
+      <div class="feature-row" style="border-top: 1px solid #e2e8f0;">
+        <h3 class="fname" style="color: #0f172a;">Multi-Channel Sync</h3>
+        <p class="fdesc" style="color: #64748b;">Connect Shopify, Amazon, and more. Inventory levels stay accurate across every channel, automatically.</p>
+      </div>
+      <div class="feature-row" style="border-top: 1px solid #e2e8f0;">
+        <h3 class="fname" style="color: #0f172a;">Accurate Cost of Goods</h3>
+        <p class="fdesc" style="color: #64748b;">Accurate cost of goods sold for every unit, every order. FIFO and average costing so you always know your true margins.</p>
+      </div>
+      <div class="feature-row" style="border-top: 1px solid #e2e8f0;">
+        <h3 class="fname" style="color: #0f172a;">Demand Forecasting</h3>
+        <p class="fdesc" style="color: #64748b;">Moving and seasonal averages plus AI-powered models generate reorder and transfer recommendations.</p>
+      </div>
+      <div class="feature-row" style="border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+        <h3 class="fname" style="color: #0f172a;">AI Agent</h3>
+        <p class="fdesc" style="color: #64748b;">Ask questions and trigger actions in plain language. Get answers about your inventory without digging through reports.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showVersion(id) {
+      document.querySelectorAll('.version').forEach(v => v.classList.remove('active'));
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      event.target.classList.add('active');
+      document.body.style.background = id === 'dark' ? '#0f172a' : '#ffffff';
+    }
+  </script>
+</body>
+</html>
