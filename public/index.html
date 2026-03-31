@@ -5,32 +5,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Maven Inventory — Multi-Channel Inventory Management for E-Commerce</title>
   <meta name="description" content="Multi-channel inventory management and demand forecasting for scaling e-commerce brands. FIFO costing, multi-location tracking, and AI-powered forecasting.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
   <style>
     :root {
       --teal: #14B8A6;
       --teal-dark: #0d9488;
-      --teal-glow: rgba(20, 184, 166, 0.15);
+      --teal-glow: rgba(20, 184, 166, 0.12);
       --slate-950: #020617;
       --slate-900: #0f172a;
       --slate-800: #1e293b;
       --slate-700: #334155;
       --slate-600: #475569;
+      --slate-500: #64748b;
       --slate-400: #94a3b8;
       --slate-300: #cbd5e1;
       --slate-200: #e2e8f0;
-      --white: #ffffff;
+      --white: #f1f5f9;
+      --font-serif: 'DM Serif Display', Georgia, serif;
+      --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: var(--white);
-      color: #1e293b;
+      font-family: var(--font-sans);
+      background: var(--slate-900);
+      color: var(--slate-300);
       line-height: 1.7;
       -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+
+    /* Grain texture overlay */
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 256px 256px;
+    }
+
+    /* ── Fade-in animation ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--slate-500);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── Thin rule ── */
+    .rule {
+      border: none;
+      border-top: 1px solid var(--slate-700);
+      margin: 0;
+    }
+    .rule--teal {
+      border-top-color: var(--teal);
+      opacity: 0.3;
     }
 
     /* ── Nav ── */
@@ -40,10 +95,10 @@
       left: 0;
       right: 0;
       z-index: 100;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--slate-200);
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(51, 65, 85, 0.5);
     }
 
     .nav-inner {
@@ -57,11 +112,11 @@
     }
 
     .nav-brand {
-      color: var(--slate-900);
+      color: var(--white);
       text-decoration: none;
-      font-size: 1.2rem;
-      font-weight: 700;
-      letter-spacing: -0.03em;
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      letter-spacing: -0.01em;
     }
 
     .nav-brand span { color: var(--teal); }
@@ -74,23 +129,22 @@
     }
 
     .nav-links a {
-      color: var(--slate-600);
+      color: var(--slate-400);
       text-decoration: none;
       font-size: 0.9rem;
-      font-weight: 500;
+      font-weight: 400;
       transition: color 0.2s;
     }
 
-    .nav-links a:hover { color: var(--slate-900); }
+    .nav-links a:hover { color: var(--white); }
 
     .nav-links .nav-signin {
       color: var(--teal);
-      font-weight: 600;
+      font-weight: 500;
     }
 
     .nav-links .nav-signin:hover { color: var(--teal-dark); }
 
-    /* Mobile nav toggle */
     .nav-toggle {
       display: none;
       background: none;
@@ -102,41 +156,55 @@
     .nav-toggle span {
       display: block;
       width: 22px;
-      height: 2px;
-      background: var(--slate-600);
+      height: 1.5px;
+      background: var(--slate-400);
       margin: 5px 0;
       transition: 0.2s;
     }
 
-    /* ── Sections ── */
-    section {
+    /* ── Container ── */
+    .container {
       max-width: 1120px;
       margin: 0 auto;
-      padding: 6rem 2rem;
+      padding: 0 2rem;
     }
 
     /* ── Hero ── */
     .hero {
-      padding-top: 10rem;
-      padding-bottom: 6rem;
+      padding-top: 11rem;
+      padding-bottom: 8rem;
       text-align: center;
     }
 
+    .hero-badge {
+      display: inline-block;
+      border: 1px solid rgba(20, 184, 166, 0.3);
+      color: var(--teal);
+      padding: 0.4rem 1.25rem;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      margin-bottom: 2.5rem;
+    }
+
     .hero h1 {
-      font-size: 3.5rem;
-      font-weight: 800;
-      color: #0f172a;
-      letter-spacing: -0.04em;
-      line-height: 1.1;
-      margin-bottom: 1.25rem;
+      font-family: var(--font-serif);
+      font-size: 4.5rem;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.08;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
     }
 
     .hero p {
-      font-size: 1.25rem;
-      color: #64748b;
-      max-width: 600px;
-      margin: 0 auto 2.5rem;
-      line-height: 1.6;
+      font-size: 1.2rem;
+      color: var(--slate-400);
+      max-width: 620px;
+      margin: 0 auto 3rem;
+      line-height: 1.7;
+      font-weight: 300;
     }
 
     .hero-ctas {
@@ -144,17 +212,18 @@
       gap: 1rem;
       justify-content: center;
       flex-wrap: wrap;
+      margin-bottom: 5rem;
     }
 
     .btn-primary {
       display: inline-block;
       background: var(--teal);
       color: var(--slate-950);
-      padding: 0.85rem 2rem;
-      border-radius: 8px;
+      padding: 0.85rem 2.25rem;
+      border-radius: 6px;
       text-decoration: none;
-      font-weight: 700;
-      font-size: 1rem;
+      font-weight: 600;
+      font-size: 0.95rem;
       transition: background 0.2s, transform 0.15s;
     }
 
@@ -163,115 +232,138 @@
       transform: translateY(-1px);
     }
 
-    .btn-outline {
+    .btn-ghost {
       display: inline-block;
       background: transparent;
-      color: #1e293b;
-      padding: 0.85rem 2rem;
-      border-radius: 8px;
-      border: 1.5px solid var(--slate-200);
+      color: var(--slate-300);
+      padding: 0.85rem 2.25rem;
+      border-radius: 6px;
+      border: 1px solid var(--slate-600);
       text-decoration: none;
-      font-weight: 600;
-      font-size: 1rem;
+      font-weight: 500;
+      font-size: 0.95rem;
       transition: border-color 0.2s, color 0.2s, transform 0.15s;
     }
 
-    .btn-outline:hover {
-      border-color: var(--teal);
-      color: var(--teal);
+    .btn-ghost:hover {
+      border-color: var(--slate-400);
+      color: var(--white);
       transform: translateY(-1px);
+    }
+
+    /* ── Hero stats ── */
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat .number {
+      font-family: var(--font-serif);
+      font-size: 2.5rem;
+      color: var(--white);
+      display: block;
+      line-height: 1.2;
+    }
+
+    .hero-stat .label {
+      font-size: 0.8rem;
+      color: var(--slate-500);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 500;
     }
 
     /* ── Problem ── */
     .problem {
-      text-align: center;
-      border-top: 1px solid var(--slate-200);
+      padding: 10rem 0;
     }
 
     .problem-inner {
-      max-width: 720px;
-      margin: 0 auto;
+      max-width: 700px;
     }
 
     .problem h2 {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #0f172a;
-      letter-spacing: -0.03em;
-      margin-bottom: 1.25rem;
+      font-family: var(--font-serif);
+      font-size: 2.75rem;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 1.75rem;
     }
 
     .problem p {
       font-size: 1.1rem;
-      color: #64748b;
-      line-height: 1.8;
+      color: var(--slate-400);
+      line-height: 1.85;
+      font-weight: 300;
     }
 
     /* ── Features ── */
     .features {
-      border-top: 1px solid var(--slate-200);
+      padding: 10rem 0;
     }
 
-    .features h2 {
-      text-align: center;
-      font-size: 2rem;
-      font-weight: 700;
-      color: #0f172a;
-      letter-spacing: -0.03em;
-      margin-bottom: 3rem;
+    .features-list {
+      margin-top: 4rem;
     }
 
-    .features-grid {
+    .feature-row {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 4rem;
+      padding: 2.5rem 0;
+      border-top: 1px solid var(--slate-700);
+      align-items: start;
     }
 
-    .feature-card {
-      background: var(--white);
-      border: 1px solid var(--slate-200);
-      border-radius: 12px;
-      padding: 2rem;
-      transition: box-shadow 0.25s, transform 0.2s;
+    .feature-row:last-child {
+      border-bottom: 1px solid var(--slate-700);
     }
 
-    .feature-card:hover {
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-      transform: translateY(-2px);
+    .feature-name {
+      font-family: var(--font-serif);
+      font-size: 1.75rem;
+      color: var(--white);
+      line-height: 1.25;
     }
 
-    .feature-card h3 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #0f172a;
-      margin-bottom: 0.6rem;
-      letter-spacing: -0.01em;
-    }
-
-    .feature-card p {
-      font-size: 0.95rem;
-      color: #64748b;
-      line-height: 1.6;
-    }
-
-    /* ── Pricing comparison ── */
-    .comparison {
-      text-align: center;
-      border-top: 1px solid var(--slate-200);
-    }
-
-    .comparison h2 {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #0f172a;
-      letter-spacing: -0.03em;
-      margin-bottom: 0.75rem;
-    }
-
-    .comparison > p {
-      color: #64748b;
+    .feature-desc {
       font-size: 1.05rem;
-      margin-bottom: 3rem;
+      color: var(--slate-400);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    /* ── Comparison ── */
+    .comparison {
+      padding: 10rem 0;
+    }
+
+    .comparison-hero {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+
+    .comparison-number {
+      font-family: var(--font-serif);
+      font-size: 8rem;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .comparison-subtitle {
+      font-size: 1.5rem;
+      color: var(--slate-400);
+      font-weight: 300;
+      font-style: italic;
+      font-family: var(--font-serif);
     }
 
     .comparison-table {
@@ -283,72 +375,63 @@
 
     .comparison-table th,
     .comparison-table td {
-      padding: 1rem 1.5rem;
+      padding: 1.1rem 1.5rem;
       text-align: left;
-      border-bottom: 1px solid var(--slate-200);
+      border-bottom: 1px solid var(--slate-700);
     }
 
     .comparison-table thead th {
-      color: #64748b;
-      font-weight: 600;
-      font-size: 0.85rem;
+      color: var(--slate-500);
+      font-weight: 500;
+      font-size: 0.8rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
     }
 
     .comparison-table tbody td {
       font-size: 1rem;
-      color: #475569;
+      color: var(--slate-400);
     }
 
     .comparison-table tbody td:first-child {
-      font-weight: 600;
-      color: #0f172a;
+      font-weight: 500;
+      color: var(--slate-300);
     }
 
     .price-maven {
       color: var(--teal) !important;
-      font-weight: 700 !important;
+      font-weight: 600 !important;
     }
 
     .price-competitor {
-      color: var(--slate-400) !important;
+      color: var(--slate-600) !important;
       text-decoration: line-through;
     }
 
     /* ── CTA ── */
     .cta-section {
+      padding: 10rem 0;
       text-align: center;
-      border-top: 1px solid var(--slate-200);
     }
 
-    .cta-box {
-      background: #f8fafc;
-      border: 1px solid var(--slate-200);
-      border-radius: 16px;
-      padding: 4rem 2rem;
-      max-width: 640px;
-      margin: 0 auto;
+    .cta-section h2 {
+      font-family: var(--font-serif);
+      font-size: 3rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 1rem;
     }
 
-    .cta-box h2 {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #0f172a;
-      margin-bottom: 0.75rem;
-      letter-spacing: -0.03em;
-    }
-
-    .cta-box p {
-      color: #64748b;
-      margin-bottom: 2rem;
-      font-size: 1.05rem;
+    .cta-section p {
+      color: var(--slate-400);
+      margin-bottom: 2.5rem;
+      font-size: 1.1rem;
+      font-weight: 300;
     }
 
     /* ── Footer ── */
     footer {
-      background: #f8fafc;
-      border-top: 1px solid var(--slate-200);
+      border-top: 1px solid var(--slate-700);
       padding: 3rem 2rem;
       text-align: center;
     }
@@ -368,7 +451,7 @@
     }
 
     .footer-links a {
-      color: #64748b;
+      color: var(--slate-500);
       text-decoration: none;
       font-size: 0.9rem;
       transition: color 0.2s;
@@ -377,7 +460,7 @@
     .footer-links a:hover { color: var(--teal); }
 
     .footer-copy {
-      color: #94a3b8;
+      color: var(--slate-600);
       font-size: 0.8rem;
     }
 
@@ -391,37 +474,44 @@
         top: 64px;
         left: 0;
         right: 0;
-        background: var(--white);
-        border-bottom: 1px solid var(--slate-200);
+        background: rgba(15, 23, 42, 0.97);
+        border-bottom: 1px solid var(--slate-700);
         padding: 1.5rem 2rem;
         gap: 1.25rem;
       }
       .nav-toggle { display: block; }
 
-      .hero { padding-top: 7rem; padding-bottom: 4rem; }
-      .hero h1 { font-size: 2.25rem; }
-      .hero p { font-size: 1.1rem; }
+      .hero { padding-top: 7rem; padding-bottom: 5rem; }
+      .hero h1 { font-size: 2.75rem; }
+      .hero p { font-size: 1.05rem; }
 
-      section { padding: 4rem 1.5rem; }
+      .hero-stats { gap: 2rem; }
+      .hero-stat .number { font-size: 1.8rem; }
 
-      .features-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
+      .problem, .features, .comparison, .cta-section {
+        padding: 6rem 0;
       }
+
+      .problem h2 { font-size: 2rem; }
+
+      .feature-row {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        padding: 1.75rem 0;
+      }
+
+      .feature-name { font-size: 1.35rem; }
+
+      .comparison-number { font-size: 5rem; }
+      .comparison-subtitle { font-size: 1.15rem; }
 
       .comparison-table th,
       .comparison-table td {
-        padding: 0.75rem 1rem;
+        padding: 0.85rem 1rem;
         font-size: 0.9rem;
       }
 
-      .cta-box { padding: 3rem 1.5rem; }
-    }
-
-    @media (min-width: 769px) and (max-width: 1024px) {
-      .features-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      .cta-section h2 { font-size: 2.25rem; }
     }
   </style>
 </head>
@@ -444,58 +534,93 @@
   </nav>
 
   <!-- ── Hero ── -->
-  <section class="hero">
-    <h1>Inventory management built for modern e-commerce</h1>
-    <p>Multi-channel sync, accurate cost of goods sold, and AI-powered demand forecasting for scaling brands.</p>
-    <div class="hero-ctas">
-      <a href="https://app.maveninventory.com/login" class="btn-primary">Start Free Trial</a>
-      <a href="/pricing" class="btn-outline">See Pricing</a>
+  <section class="hero container">
+    <div class="fade-in">
+      <span class="hero-badge">Inventory Intelligence</span>
+      <h1>The numbers don't lie.</h1>
+      <p>Multi-channel inventory management, accurate cost of goods sold, and AI-powered demand forecasting for brands that run on data.</p>
+      <div class="hero-ctas">
+        <a href="https://app.maveninventory.com/login" class="btn-primary">Start Free Trial</a>
+        <a href="/pricing" class="btn-ghost">See Pricing</a>
+      </div>
+    </div>
+    <hr class="rule rule--teal">
+    <div class="hero-stats fade-in" style="padding-top: 3.5rem;">
+      <div class="hero-stat">
+        <span class="number">$20M+</span>
+        <span class="label">Managed Inventory</span>
+      </div>
+      <div class="hero-stat">
+        <span class="number">15min</span>
+        <span class="label">Sync Cycle</span>
+      </div>
+      <div class="hero-stat">
+        <span class="number">99.9%</span>
+        <span class="label">Uptime</span>
+      </div>
+      <div class="hero-stat">
+        <span class="number">$99/mo</span>
+        <span class="label">Starting Price</span>
+      </div>
     </div>
   </section>
 
-  <!-- ── Problem Statement ── -->
-  <section class="problem">
+  <!-- ── Problem ── -->
+  <section class="container">
+    <hr class="rule">
+  </section>
+  <section class="problem container fade-in">
     <div class="problem-inner">
-      <h2>Your inventory tools weren't built for this</h2>
-      <p>Most inventory software was designed for warehouses and wholesale, not modern e-commerce. You need multi-channel visibility, accurate COGS, and intelligent forecasting — not just a spreadsheet replacement. Maven Inventory is purpose-built for brands selling across Shopify, Amazon, and beyond.</p>
+      <p class="section-label">The Problem</p>
+      <h2>Most inventory tools were built for a different era.</h2>
+      <p>They were designed for warehouses and wholesale, not modern e-commerce. You need multi-channel visibility, accurate COGS, and intelligent forecasting — not just a spreadsheet replacement. Maven Inventory is purpose-built for brands selling across Shopify, Amazon, and beyond.</p>
     </div>
   </section>
 
   <!-- ── Features ── -->
-  <section class="features" id="features">
-    <h2>Everything you need to scale with confidence</h2>
-    <div class="features-grid">
-      <div class="feature-card">
-        <h3>Multi-Channel Sync</h3>
-        <p>Connect Shopify, Amazon, and more. Inventory levels stay accurate across every channel, automatically.</p>
+  <section class="container">
+    <hr class="rule">
+  </section>
+  <section class="features container" id="features">
+    <p class="section-label fade-in">Capabilities</p>
+    <div class="features-list">
+      <div class="feature-row fade-in">
+        <h3 class="feature-name">Multi-Channel Sync</h3>
+        <p class="feature-desc">Connect Shopify, Amazon, and more. Inventory levels stay accurate across every channel, automatically.</p>
       </div>
-      <div class="feature-card">
-        <h3>Accurate Cost of Goods</h3>
-        <p>Accurate cost of goods sold for every unit, every order. FIFO and average costing so you always know your true margins.</p>
+      <div class="feature-row fade-in">
+        <h3 class="feature-name">Accurate Cost of Goods</h3>
+        <p class="feature-desc">Accurate cost of goods sold for every unit, every order. FIFO and average costing so you always know your true margins.</p>
       </div>
-      <div class="feature-card">
-        <h3>Multi-Location Inventory</h3>
-        <p>Track stock across warehouses, FBA, 3PLs, and retail locations from a single dashboard.</p>
+      <div class="feature-row fade-in">
+        <h3 class="feature-name">Multi-Location Inventory</h3>
+        <p class="feature-desc">Track stock across warehouses, FBA, 3PLs, and retail locations from a single dashboard.</p>
       </div>
-      <div class="feature-card">
-        <h3>Demand Forecasting</h3>
-        <p>Moving and seasonal averages plus AI-powered models generate reorder and transfer recommendations so you never miss a beat.</p>
+      <div class="feature-row fade-in">
+        <h3 class="feature-name">Demand Forecasting</h3>
+        <p class="feature-desc">Moving and seasonal averages plus AI-powered models generate reorder and transfer recommendations so you never miss a beat.</p>
       </div>
-      <div class="feature-card">
-        <h3>Cash Flow Forecasting</h3>
-        <p>Project your cash needs from reorder schedules so you never overcommit capital on inventory.</p>
+      <div class="feature-row fade-in">
+        <h3 class="feature-name">Cash Flow Forecasting</h3>
+        <p class="feature-desc">Project your cash needs from reorder schedules so you never overcommit capital on inventory.</p>
       </div>
-      <div class="feature-card">
-        <h3>AI Agent</h3>
-        <p>Ask questions and trigger actions in plain language. Get answers about your inventory without digging through reports.</p>
+      <div class="feature-row fade-in">
+        <h3 class="feature-name">AI Agent</h3>
+        <p class="feature-desc">Ask questions and trigger actions in plain language. Get answers about your inventory without digging through reports.</p>
       </div>
     </div>
   </section>
 
-  <!-- ── Pricing Comparison ── -->
-  <section class="comparison">
-    <h2>80% less than the alternatives</h2>
-    <p>Enterprise-grade inventory management without the enterprise price tag.</p>
+  <!-- ── Comparison ── -->
+  <section class="container">
+    <hr class="rule">
+  </section>
+  <section class="comparison container fade-in">
+    <p class="section-label" style="text-align: center;">The Math</p>
+    <div class="comparison-hero">
+      <div class="comparison-number">80%</div>
+      <div class="comparison-subtitle">less than the alternatives</div>
+    </div>
     <table class="comparison-table">
       <thead>
         <tr>
@@ -525,12 +650,13 @@
   </section>
 
   <!-- ── CTA ── -->
-  <section class="cta-section">
-    <div class="cta-box">
-      <h2>Start your 30-day free trial</h2>
-      <p>No credit card required. Full access to every feature.</p>
-      <a href="https://app.maveninventory.com/login" class="btn-primary">Get Started Free</a>
-    </div>
+  <section class="container">
+    <hr class="rule">
+  </section>
+  <section class="cta-section container fade-in">
+    <h2>See it for yourself.</h2>
+    <p>30-day free trial. No credit card required.</p>
+    <a href="https://app.maveninventory.com/login" class="btn-primary">Start Free Trial</a>
   </section>
 
   <!-- ── Footer ── -->
@@ -544,6 +670,26 @@
       <p class="footer-copy">&copy; 2026 Rain City Brands LLC. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- ── Scroll animations ── -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var els = document.querySelectorAll('.fade-in');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('visible'); });
+        return;
+      }
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      els.forEach(function (el) { observer.observe(el); });
+    });
+  </script>
 
 </body>
 </html>
