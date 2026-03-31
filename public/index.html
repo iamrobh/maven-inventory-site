@@ -27,8 +27,8 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: var(--slate-900);
-      color: var(--slate-300);
+      background: var(--white);
+      color: #1e293b;
       line-height: 1.7;
       -webkit-font-smoothing: antialiased;
     }
@@ -40,10 +40,10 @@
       left: 0;
       right: 0;
       z-index: 100;
-      background: rgba(15, 23, 42, 0.92);
+      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--slate-800);
+      border-bottom: 1px solid var(--slate-200);
     }
 
     .nav-inner {
@@ -57,7 +57,7 @@
     }
 
     .nav-brand {
-      color: var(--white);
+      color: var(--slate-900);
       text-decoration: none;
       font-size: 1.2rem;
       font-weight: 700;
@@ -74,21 +74,21 @@
     }
 
     .nav-links a {
-      color: var(--slate-400);
+      color: var(--slate-600);
       text-decoration: none;
       font-size: 0.9rem;
       font-weight: 500;
       transition: color 0.2s;
     }
 
-    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover { color: var(--slate-900); }
 
     .nav-links .nav-signin {
       color: var(--teal);
       font-weight: 600;
     }
 
-    .nav-links .nav-signin:hover { color: var(--white); }
+    .nav-links .nav-signin:hover { color: var(--teal-dark); }
 
     /* Mobile nav toggle */
     .nav-toggle {
@@ -103,7 +103,7 @@
       display: block;
       width: 22px;
       height: 2px;
-      background: var(--slate-300);
+      background: var(--slate-600);
       margin: 5px 0;
       transition: 0.2s;
     }
@@ -125,7 +125,7 @@
     .hero h1 {
       font-size: 3.5rem;
       font-weight: 800;
-      color: var(--white);
+      color: #0f172a;
       letter-spacing: -0.04em;
       line-height: 1.1;
       margin-bottom: 1.25rem;
@@ -133,7 +133,7 @@
 
     .hero p {
       font-size: 1.25rem;
-      color: var(--slate-400);
+      color: #64748b;
       max-width: 600px;
       margin: 0 auto 2.5rem;
       line-height: 1.6;
@@ -166,10 +166,10 @@
     .btn-outline {
       display: inline-block;
       background: transparent;
-      color: var(--slate-300);
+      color: #1e293b;
       padding: 0.85rem 2rem;
       border-radius: 8px;
-      border: 1.5px solid var(--slate-600);
+      border: 1.5px solid var(--slate-200);
       text-decoration: none;
       font-weight: 600;
       font-size: 1rem;
@@ -185,7 +185,7 @@
     /* ── Problem ── */
     .problem {
       text-align: center;
-      border-top: 1px solid var(--slate-800);
+      border-top: 1px solid var(--slate-200);
     }
 
     .problem-inner {
@@ -196,27 +196,27 @@
     .problem h2 {
       font-size: 2rem;
       font-weight: 700;
-      color: var(--white);
+      color: #0f172a;
       letter-spacing: -0.03em;
       margin-bottom: 1.25rem;
     }
 
     .problem p {
       font-size: 1.1rem;
-      color: var(--slate-400);
+      color: #64748b;
       line-height: 1.8;
     }
 
     /* ── Features ── */
     .features {
-      border-top: 1px solid var(--slate-800);
+      border-top: 1px solid var(--slate-200);
     }
 
     .features h2 {
       text-align: center;
       font-size: 2rem;
       font-weight: 700;
-      color: var(--white);
+      color: #0f172a;
       letter-spacing: -0.03em;
       margin-bottom: 3rem;
     }
@@ -228,48 +228,48 @@
     }
 
     .feature-card {
-      background: var(--slate-800);
-      border: 1px solid var(--slate-700);
+      background: var(--white);
+      border: 1px solid var(--slate-200);
       border-radius: 12px;
       padding: 2rem;
-      transition: border-color 0.25s, transform 0.2s;
+      transition: box-shadow 0.25s, transform 0.2s;
     }
 
     .feature-card:hover {
-      border-color: var(--teal);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
       transform: translateY(-2px);
     }
 
     .feature-card h3 {
       font-size: 1.15rem;
       font-weight: 700;
-      color: var(--white);
+      color: #0f172a;
       margin-bottom: 0.6rem;
       letter-spacing: -0.01em;
     }
 
     .feature-card p {
       font-size: 0.95rem;
-      color: var(--slate-400);
+      color: #64748b;
       line-height: 1.6;
     }
 
     /* ── Pricing comparison ── */
     .comparison {
       text-align: center;
-      border-top: 1px solid var(--slate-800);
+      border-top: 1px solid var(--slate-200);
     }
 
     .comparison h2 {
       font-size: 2rem;
       font-weight: 700;
-      color: var(--white);
+      color: #0f172a;
       letter-spacing: -0.03em;
       margin-bottom: 0.75rem;
     }
 
     .comparison > p {
-      color: var(--slate-400);
+      color: #64748b;
       font-size: 1.05rem;
       margin-bottom: 3rem;
     }
@@ -285,11 +285,11 @@
     .comparison-table td {
       padding: 1rem 1.5rem;
       text-align: left;
-      border-bottom: 1px solid var(--slate-700);
+      border-bottom: 1px solid var(--slate-200);
     }
 
     .comparison-table thead th {
-      color: var(--slate-400);
+      color: #64748b;
       font-weight: 600;
       font-size: 0.85rem;
       text-transform: uppercase;
@@ -298,12 +298,12 @@
 
     .comparison-table tbody td {
       font-size: 1rem;
-      color: var(--slate-300);
+      color: #475569;
     }
 
     .comparison-table tbody td:first-child {
       font-weight: 600;
-      color: var(--white);
+      color: #0f172a;
     }
 
     .price-maven {
@@ -319,12 +319,12 @@
     /* ── CTA ── */
     .cta-section {
       text-align: center;
-      border-top: 1px solid var(--slate-800);
+      border-top: 1px solid var(--slate-200);
     }
 
     .cta-box {
-      background: var(--slate-800);
-      border: 1px solid var(--slate-700);
+      background: #f8fafc;
+      border: 1px solid var(--slate-200);
       border-radius: 16px;
       padding: 4rem 2rem;
       max-width: 640px;
@@ -334,20 +334,21 @@
     .cta-box h2 {
       font-size: 2rem;
       font-weight: 700;
-      color: var(--white);
+      color: #0f172a;
       margin-bottom: 0.75rem;
       letter-spacing: -0.03em;
     }
 
     .cta-box p {
-      color: var(--slate-400);
+      color: #64748b;
       margin-bottom: 2rem;
       font-size: 1.05rem;
     }
 
     /* ── Footer ── */
     footer {
-      border-top: 1px solid var(--slate-800);
+      background: #f8fafc;
+      border-top: 1px solid var(--slate-200);
       padding: 3rem 2rem;
       text-align: center;
     }
@@ -367,7 +368,7 @@
     }
 
     .footer-links a {
-      color: var(--slate-400);
+      color: #64748b;
       text-decoration: none;
       font-size: 0.9rem;
       transition: color 0.2s;
@@ -376,7 +377,7 @@
     .footer-links a:hover { color: var(--teal); }
 
     .footer-copy {
-      color: var(--slate-600);
+      color: #94a3b8;
       font-size: 0.8rem;
     }
 
@@ -390,8 +391,8 @@
         top: 64px;
         left: 0;
         right: 0;
-        background: var(--slate-900);
-        border-bottom: 1px solid var(--slate-800);
+        background: var(--white);
+        border-bottom: 1px solid var(--slate-200);
         padding: 1.5rem 2rem;
         gap: 1.25rem;
       }

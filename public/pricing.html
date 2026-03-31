@@ -27,8 +27,8 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: var(--slate-900);
-      color: var(--slate-300);
+      background: var(--white);
+      color: #1e293b;
       line-height: 1.7;
       -webkit-font-smoothing: antialiased;
     }
@@ -40,10 +40,10 @@
       left: 0;
       right: 0;
       z-index: 100;
-      background: rgba(15, 23, 42, 0.92);
+      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--slate-800);
+      border-bottom: 1px solid var(--slate-200);
     }
 
     .nav-inner {
@@ -57,7 +57,7 @@
     }
 
     .nav-brand {
-      color: var(--white);
+      color: var(--slate-900);
       text-decoration: none;
       font-size: 1.2rem;
       font-weight: 700;
@@ -74,21 +74,21 @@
     }
 
     .nav-links a {
-      color: var(--slate-400);
+      color: var(--slate-600);
       text-decoration: none;
       font-size: 0.9rem;
       font-weight: 500;
       transition: color 0.2s;
     }
 
-    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover { color: var(--slate-900); }
 
     .nav-links .nav-signin {
       color: var(--teal);
       font-weight: 600;
     }
 
-    .nav-links .nav-signin:hover { color: var(--white); }
+    .nav-links .nav-signin:hover { color: var(--teal-dark); }
 
     .nav-toggle {
       display: none;
@@ -102,7 +102,7 @@
       display: block;
       width: 22px;
       height: 2px;
-      background: var(--slate-300);
+      background: var(--slate-600);
       margin: 5px 0;
       transition: 0.2s;
     }
@@ -118,7 +118,7 @@
     .page-header h1 {
       font-size: 3rem;
       font-weight: 800;
-      color: var(--white);
+      color: #0f172a;
       letter-spacing: -0.04em;
       line-height: 1.15;
       margin-bottom: 1rem;
@@ -126,7 +126,7 @@
 
     .page-header p {
       font-size: 1.15rem;
-      color: var(--slate-400);
+      color: #64748b;
       max-width: 560px;
       margin: 0 auto;
     }
@@ -163,8 +163,8 @@
     }
 
     .pricing-card {
-      background: var(--slate-800);
-      border: 1px solid var(--slate-700);
+      background: var(--white);
+      border: 1px solid var(--slate-200);
       border-radius: 16px;
       padding: 2.5rem 2rem;
       position: relative;
@@ -172,7 +172,7 @@
 
     .pricing-card.highlighted {
       border-color: var(--teal);
-      box-shadow: 0 0 40px rgba(20, 184, 166, 0.1);
+      box-shadow: 0 4px 24px rgba(20, 184, 166, 0.12);
       transform: scale(1.03);
     }
 
@@ -195,21 +195,21 @@
     .pricing-card h2 {
       font-size: 1.5rem;
       font-weight: 700;
-      color: var(--white);
+      color: #0f172a;
       margin-bottom: 0.25rem;
     }
 
     .pricing-card .price {
       font-size: 2.5rem;
       font-weight: 800;
-      color: var(--white);
+      color: #0f172a;
       letter-spacing: -0.03em;
       margin: 1rem 0 0.25rem;
     }
 
     .pricing-card .price-period {
       font-size: 0.95rem;
-      color: var(--slate-400);
+      color: #64748b;
       margin-bottom: 0.5rem;
     }
 
@@ -222,7 +222,7 @@
 
     .pricing-card .divider {
       height: 1px;
-      background: var(--slate-700);
+      background: var(--slate-200);
       margin: 0 0 1.5rem;
     }
 
@@ -236,7 +236,7 @@
       padding-left: 1.5rem;
       position: relative;
       font-size: 0.95rem;
-      color: var(--slate-300);
+      color: #475569;
     }
 
     .pricing-card li::before {
@@ -253,7 +253,7 @@
     .pricing-card li.section-label {
       padding-left: 0;
       font-weight: 600;
-      color: var(--slate-400);
+      color: #94a3b8;
       font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 0.03em;
@@ -286,10 +286,10 @@
       display: block;
       text-align: center;
       background: transparent;
-      color: var(--slate-300);
+      color: #1e293b;
       padding: 0.85rem 2rem;
       border-radius: 8px;
-      border: 1.5px solid var(--slate-600);
+      border: 1.5px solid var(--slate-200);
       text-decoration: none;
       font-weight: 600;
       font-size: 1rem;
@@ -307,43 +307,44 @@
       max-width: 720px;
       margin: 0 auto;
       padding: 4rem 2rem 6rem;
-      border-top: 1px solid var(--slate-800);
+      border-top: 1px solid var(--slate-200);
     }
 
     .faq-section h2 {
       font-size: 2rem;
       font-weight: 700;
-      color: var(--white);
+      color: #0f172a;
       letter-spacing: -0.03em;
       text-align: center;
       margin-bottom: 3rem;
     }
 
     .faq-item {
-      border-bottom: 1px solid var(--slate-700);
+      border-bottom: 1px solid var(--slate-200);
       padding: 1.5rem 0;
     }
 
     .faq-item:first-of-type {
-      border-top: 1px solid var(--slate-700);
+      border-top: 1px solid var(--slate-200);
     }
 
     .faq-item h3 {
       font-size: 1.05rem;
       font-weight: 600;
-      color: var(--white);
+      color: #0f172a;
       margin-bottom: 0.6rem;
     }
 
     .faq-item p {
       font-size: 0.95rem;
-      color: var(--slate-400);
+      color: #64748b;
       line-height: 1.7;
     }
 
     /* ── Footer ── */
     footer {
-      border-top: 1px solid var(--slate-800);
+      background: #f8fafc;
+      border-top: 1px solid var(--slate-200);
       padding: 3rem 2rem;
       text-align: center;
     }
@@ -363,7 +364,7 @@
     }
 
     .footer-links a {
-      color: var(--slate-400);
+      color: #64748b;
       text-decoration: none;
       font-size: 0.9rem;
       transition: color 0.2s;
@@ -372,7 +373,7 @@
     .footer-links a:hover { color: var(--teal); }
 
     .footer-copy {
-      color: var(--slate-600);
+      color: #94a3b8;
       font-size: 0.8rem;
     }
 
@@ -386,8 +387,8 @@
         top: 64px;
         left: 0;
         right: 0;
-        background: var(--slate-900);
-        border-bottom: 1px solid var(--slate-800);
+        background: var(--white);
+        border-bottom: 1px solid var(--slate-200);
         padding: 1.5rem 2rem;
         gap: 1.25rem;
       }
@@ -467,7 +468,7 @@
       <!-- Growth -->
       <div class="pricing-card">
         <h2>Growth</h2>
-        <div class="price">$99<span style="font-size: 1rem; font-weight: 500; color: var(--slate-400);">/mo</span></div>
+        <div class="price">$99<span style="font-size: 1rem; font-weight: 500; color: #64748b;">/mo</span></div>
         <div class="audience">For brands $500K &ndash; $5M</div>
         <div class="divider"></div>
         <ul>
@@ -487,7 +488,7 @@
       <div class="pricing-card highlighted">
         <div class="popular-badge">Most Popular</div>
         <h2>Scale</h2>
-        <div class="price">$249<span style="font-size: 1rem; font-weight: 500; color: var(--slate-400);">/mo</span></div>
+        <div class="price">$249<span style="font-size: 1rem; font-weight: 500; color: #64748b;">/mo</span></div>
         <div class="audience">For brands $3M &ndash; $20M</div>
         <div class="divider"></div>
         <ul>
