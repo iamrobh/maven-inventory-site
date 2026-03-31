@@ -32,11 +32,118 @@
 
     body {
       font-family: var(--font-sans);
-      background: var(--slate-900);
+      background: var(--slate-950);
       color: var(--slate-300);
       line-height: 1.7;
       -webkit-font-smoothing: antialiased;
       position: relative;
+    }
+
+    /* ── Gradient scroll zones ── */
+    .grad-hero {
+      background: linear-gradient(to bottom, #020617, #0f172a);
+    }
+    .grad-problem {
+      background: linear-gradient(to bottom, #0f172a, #0a1f2e, #0d2b3a);
+    }
+    .grad-features {
+      background: linear-gradient(to bottom, #0d2b3a, #0a2530);
+    }
+    .grad-comparison {
+      background: linear-gradient(to bottom, #0a2530, #081e28);
+    }
+    .grad-cta {
+      background: linear-gradient(to bottom, #081e28, #0f172a);
+    }
+    .grad-footer {
+      background: #0f172a;
+    }
+
+    /* ── Teal-tinted text for mid-page sections ── */
+    /* Problem zone: partial teal tint */
+    .grad-problem .section-label {
+      color: #577e7e;
+    }
+    .grad-problem h2 {
+      color: #e8f2f2;
+    }
+    .grad-problem p:not(.section-label) {
+      color: #87a8a8;
+    }
+    .grad-problem .rule {
+      border-top-color: #1a3a4a;
+    }
+
+    /* Features zone: fully teal tinted */
+    .grad-features .section-label {
+      color: #4a8a8a;
+    }
+    .grad-features .feature-name {
+      color: #e2f0f0;
+    }
+    .grad-features .feature-desc {
+      color: #7ab0b0;
+    }
+    .grad-features .feature-row {
+      border-top-color: #1a3a4a;
+    }
+    .grad-features .feature-row:last-child {
+      border-bottom-color: #1a3a4a;
+    }
+    .grad-features .rule {
+      border-top-color: #1a3a4a;
+    }
+
+    /* Comparison zone: teal tinted */
+    .grad-comparison .section-label {
+      color: #4a8a8a;
+    }
+    .grad-comparison .comparison-number {
+      color: #e2f0f0;
+    }
+    .grad-comparison .comparison-subtitle {
+      color: #7ab0b0;
+    }
+    .grad-comparison .comparison-table th {
+      color: #4a8a8a;
+    }
+    .grad-comparison .comparison-table td {
+      color: #7ab0b0;
+    }
+    .grad-comparison .comparison-table tbody td:first-child {
+      color: #9ac4c4;
+    }
+    .grad-comparison .comparison-table th,
+    .grad-comparison .comparison-table td {
+      border-bottom-color: #1a3a4a;
+    }
+    .grad-comparison .rule {
+      border-top-color: #1a3a4a;
+    }
+
+    /* CTA zone: transitioning back */
+    .grad-cta .cta-section h2 {
+      color: #e8f2f2;
+    }
+    .grad-cta .cta-section p {
+      color: #7ab0b0;
+    }
+    .grad-cta .rule {
+      border-top-color: #1a3a4a;
+    }
+
+    /* Footer zone */
+    .grad-footer footer {
+      border-top-color: #1a3a4a;
+    }
+    .grad-footer .footer-links a {
+      color: #4a8a8a;
+    }
+    .grad-footer .footer-links a:hover {
+      color: var(--teal);
+    }
+    .grad-footer .footer-copy {
+      color: #2a5a5a;
     }
 
     /* Grain texture overlay */
@@ -534,6 +641,7 @@
   </nav>
 
   <!-- ── Hero ── -->
+  <div class="grad-hero">
   <section class="hero container">
     <div class="fade-in">
       <span class="hero-badge">Multi-Channel Inventory Management</span>
@@ -564,8 +672,10 @@
       </div>
     </div>
   </section>
+  </div>
 
   <!-- ── Problem ── -->
+  <div class="grad-problem">
   <section class="container">
     <hr class="rule">
   </section>
@@ -576,8 +686,10 @@
       <p>They were designed for warehouses and wholesale, not modern e-commerce. You need multi-channel visibility, accurate COGS, and intelligent forecasting — not just a spreadsheet replacement. Maven Inventory is purpose-built for brands selling across Shopify, Amazon, and beyond.</p>
     </div>
   </section>
+  </div>
 
   <!-- ── Features ── -->
+  <div class="grad-features">
   <section class="container">
     <hr class="rule">
   </section>
@@ -610,8 +722,10 @@
       </div>
     </div>
   </section>
+  </div>
 
   <!-- ── Comparison ── -->
+  <div class="grad-comparison">
   <section class="container">
     <hr class="rule">
   </section>
@@ -648,8 +762,10 @@
       </tbody>
     </table>
   </section>
+  </div>
 
   <!-- ── CTA ── -->
+  <div class="grad-cta">
   <section class="container">
     <hr class="rule">
   </section>
@@ -658,8 +774,10 @@
     <p>30-day free trial. No credit card required.</p>
     <a href="https://app.maveninventory.com/login" class="btn-primary">Start Free Trial</a>
   </section>
+  </div>
 
   <!-- ── Footer ── -->
+  <div class="grad-footer">
   <footer>
     <div class="footer-inner">
       <ul class="footer-links">
@@ -670,6 +788,7 @@
       <p class="footer-copy">&copy; 2026 Rain City Brands LLC. All rights reserved.</p>
     </div>
   </footer>
+  </div>
 
   <!-- ── Scroll animations ── -->
   <script>
