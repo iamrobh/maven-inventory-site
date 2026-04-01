@@ -991,7 +991,17 @@
           setButtonLoading('btn-step2', false);
           return;
         }
-        workspaceId = result.data;
+        // RPC returns JSON: { success: true, workspace_id: "uuid" }
+        var rpcData = result.data;
+        if (rpcData && rpcData.workspace_id) {
+          workspaceId = rpcData.workspace_id;
+        } else if (typeof rpcData === 'string') {
+          workspaceId = rpcData;
+        } else {
+          showBannerError('step2-error-banner', 'Failed to create workspace. Please try again.');
+          setButtonLoading('btn-step2', false);
+          return;
+        }
         setButtonLoading('btn-step2', false);
         showStep(3);
       } catch (err) {
