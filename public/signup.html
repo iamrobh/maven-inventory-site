@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <title>Sign Up — Maven Inventory</title>
+  <meta name="description" content="Create your Maven Inventory account. Multi-channel inventory management with enterprise power at startup pricing.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --teal: #14B8A6;
+      --teal-dark: #0d9488;
+      --teal-glow: rgba(20, 184, 166, 0.12);
+      --slate-950: #020617;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-400: #94a3b8;
+      --slate-300: #cbd5e1;
+      --slate-200: #e2e8f0;
+      --white: #f1f5f9;
+      --font-serif: 'DM Serif Display', Georgia, serif;
+      --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --rose-500: #f43f5e;
+      --rose-400: #fb7185;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--slate-950);
+      color: var(--slate-300);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+
+    /* ── Gradient scroll zones ── */
+    .grad-header {
+      background: linear-gradient(to bottom, #020617, #0f172a);
+    }
+    .grad-form {
+      background: linear-gradient(to bottom, #0f172a, #0d2b3a);
+      min-height: 50vh;
+    }
+    .grad-footer {
+      background: #0f172a;
+    }
+
+    /* ── Teal-tinted overrides for form zone ── */
+    .grad-form .pricing-card {
+      background: #132f3f;
+      border-color: #1a3a4a;
+    }
+    .grad-form .pricing-card.highlighted {
+      border-color: var(--teal);
+    }
+    .grad-form .pricing-card h2 {
+      color: #e2f0f0;
+    }
+    .grad-form .pricing-card .price {
+      color: #e2f0f0;
+    }
+    .grad-form .pricing-card li {
+      color: #7ab0b0;
+    }
+    .grad-form .pricing-card li.tier-label {
+      color: #4a8a8a;
+    }
+    .grad-form .pricing-card .divider {
+      background: #1a3a4a;
+    }
+    .grad-form .btn-ghost-card {
+      color: #9ac4c4;
+      border-color: #2a5a5a;
+    }
+    .grad-form .btn-ghost-card:hover {
+      border-color: #7ab0b0;
+      color: #e2f0f0;
+    }
+
+    /* ── Footer zone ── */
+    .grad-footer footer {
+      border-top-color: #1a3a4a;
+    }
+    .grad-footer .footer-links a {
+      color: #4a8a8a;
+    }
+    .grad-footer .footer-links a:hover {
+      color: var(--teal);
+    }
+    .grad-footer .footer-copy {
+      color: #2a5a5a;
+    }
+
+    /* Grain texture overlay */
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 256px 256px;
+    }
+
+    /* ── Fade-in animation ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--slate-500);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      color: var(--white);
+      text-decoration: none;
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-brand span { color: var(--teal); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--slate-400);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-links .nav-signin {
+      color: var(--teal);
+      font-weight: 500;
+    }
+
+    .nav-links .nav-signin:hover { color: var(--teal-dark); }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--slate-400);
+      margin: 5px 0;
+      transition: 0.2s;
+    }
+
+    /* ── Container ── */
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── Page Header ── */
+    .page-header {
+      padding-top: 8rem;
+      padding-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-family: var(--font-serif);
+      font-size: 3.5rem;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.12;
+      margin-bottom: 1.25rem;
+    }
+
+    .page-header p {
+      font-size: 1.15rem;
+      color: var(--slate-400);
+      max-width: 560px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+
+    /* ── Step indicator ── */
+    .step-indicator {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--slate-500);
+      font-weight: 500;
+      margin-bottom: 2.5rem;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── Wizard section ── */
+    .wizard-section {
+      padding-top: 3rem;
+      padding-bottom: 5rem;
+    }
+
+    .wizard-step {
+      display: none;
+    }
+
+    .wizard-step.active {
+      display: block;
+    }
+
+    /* ── Form styles ── */
+    .form-container {
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--slate-300);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input {
+      display: block;
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: var(--slate-800);
+      border: 1px solid var(--slate-700);
+      border-radius: 6px;
+      color: var(--white);
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    .form-group input::placeholder {
+      color: var(--slate-600);
+    }
+
+    .form-group input:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px var(--teal-glow);
+    }
+
+    .form-group input.input-error {
+      border-color: var(--rose-500);
+    }
+
+    .form-group input.input-error:focus {
+      box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.12);
+    }
+
+    .field-error {
+      font-size: 0.82rem;
+      color: var(--rose-400);
+      margin-top: 0.4rem;
+      display: none;
+    }
+
+    .field-error.visible {
+      display: block;
+    }
+
+    /* ── General error banner ── */
+    .form-error-banner {
+      background: rgba(244, 63, 94, 0.08);
+      border: 1px solid rgba(244, 63, 94, 0.25);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.88rem;
+      color: var(--rose-400);
+      display: none;
+    }
+
+    .form-error-banner.visible {
+      display: block;
+    }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background: var(--teal);
+      color: var(--slate-950);
+      padding: 0.85rem 2rem;
+      border-radius: 6px;
+      border: none;
+      text-decoration: none;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover {
+      background: var(--teal-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form-footer-link {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--slate-500);
+    }
+
+    .form-footer-link a {
+      color: var(--teal);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .form-footer-link a:hover {
+      color: var(--teal-dark);
+    }
+
+    /* ── Pricing Cards (Step 3) ── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      align-items: start;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background: var(--slate-800);
+      border: 1px solid var(--slate-700);
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      position: relative;
+    }
+
+    .pricing-card.highlighted {
+      border-color: var(--teal);
+      box-shadow: 0 0 40px rgba(20, 184, 166, 0.08);
+    }
+
+    .popular-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--teal);
+      color: var(--slate-950);
+      padding: 0.3rem 1rem;
+      border-radius: 100px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+
+    .pricing-card h2 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 0.25rem;
+    }
+
+    .pricing-card .price {
+      font-family: var(--font-serif);
+      font-size: 2.75rem;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin: 1rem 0 0.25rem;
+      line-height: 1.1;
+    }
+
+    .pricing-card .price span {
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--slate-500);
+    }
+
+    .pricing-card .price-original {
+      font-family: var(--font-sans);
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--slate-500);
+      text-decoration: line-through;
+      display: block;
+      margin-bottom: -0.25rem;
+    }
+
+    .pricing-card .audience {
+      font-size: 0.9rem;
+      color: var(--teal);
+      font-weight: 400;
+      margin-bottom: 1.75rem;
+    }
+
+    .pricing-card .divider {
+      height: 1px;
+      background: var(--slate-700);
+      margin: 0 0 1.75rem;
+    }
+
+    .pricing-card ul {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .pricing-card li {
+      padding: 0.4rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+      font-size: 0.95rem;
+      color: var(--slate-400);
+    }
+
+    .pricing-card li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.72rem;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--teal);
+    }
+
+    .pricing-card li.tier-label {
+      padding-left: 0;
+      font-weight: 500;
+      color: var(--slate-500);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 0.5rem;
+    }
+
+    .pricing-card li.tier-label::before {
+      display: none;
+    }
+
+    .btn-primary-card {
+      display: block;
+      text-align: center;
+      background: var(--teal);
+      color: var(--slate-950);
+      padding: 0.85rem 2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary-card:hover {
+      background: var(--teal-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary-card:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-ghost-card {
+      display: block;
+      text-align: center;
+      background: transparent;
+      color: var(--slate-300);
+      padding: 0.85rem 2rem;
+      border-radius: 6px;
+      border: 1px solid var(--slate-600);
+      text-decoration: none;
+      font-family: var(--font-sans);
+      font-weight: 500;
+      font-size: 0.95rem;
+      cursor: pointer;
+      width: 100%;
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    }
+
+    .btn-ghost-card:hover {
+      border-color: var(--slate-400);
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost-card:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .plan-footer-link {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: var(--slate-500);
+    }
+
+    .plan-footer-link a {
+      color: var(--teal);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .plan-footer-link a:hover {
+      color: var(--teal-dark);
+    }
+
+    /* ── Loading spinner ── */
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(2, 6, 23, 0.3);
+      border-top-color: var(--slate-950);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      vertical-align: middle;
+      margin-right: 0.4rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--slate-700);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: var(--slate-500);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--teal); }
+
+    .footer-copy {
+      color: var(--slate-600);
+      font-size: 0.8rem;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      .page-header { padding-top: 6rem; padding-bottom: 1rem; }
+      .page-header h1 { font-size: 1.85rem; }
+      .page-header p { font-size: 1rem; }
+      .pricing-card { padding: 2rem 1.5rem; }
+      .pricing-card .price { font-size: 2.25rem; }
+      .pricing-card li { font-size: 0.9rem; }
+      .btn-primary-card, .btn-ghost-card { padding: 0.75rem 1.5rem; font-size: 0.9rem; }
+      .footer-links { gap: 1.25rem; }
+      .footer-links a { font-size: 0.85rem; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: rgba(15, 23, 42, 0.97);
+        border-bottom: 1px solid var(--slate-700);
+        padding: 1.5rem 2rem;
+        gap: 1.25rem;
+      }
+      .nav-toggle { display: block; }
+
+      .page-header {
+        padding-top: 7rem;
+      }
+
+      .page-header h1 {
+        font-size: 2.25rem;
+      }
+
+      .pricing-grid {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+        margin: 0 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">Maven <span>Inventory</span></a>
+      <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="/#features">Features</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+        <li><a href="https://app.maveninventory.com/login" class="nav-signin">Sign In</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── Header ── -->
+  <div class="grad-header">
+    <div class="page-header container fade-in">
+      <p class="section-label">Get Started</p>
+      <h1>Create your account</h1>
+      <p>Set up Maven Inventory in minutes. No credit card required to start your free trial.</p>
+    </div>
+  </div>
+
+  <!-- ── Wizard ── -->
+  <div class="grad-form">
+    <section class="wizard-section container">
+
+      <!-- Step 1 — Create Account -->
+      <div class="wizard-step active" id="step-1">
+        <div class="form-container fade-in">
+          <p class="step-indicator">Step 1 of 3</p>
+
+          <div class="form-error-banner" id="step1-error-banner"></div>
+
+          <form id="form-step1" novalidate>
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" id="email" name="email" placeholder="you@company.com" autocomplete="email" required>
+              <p class="field-error" id="email-error">Please enter a valid email address.</p>
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" placeholder="Minimum 8 characters" autocomplete="new-password" required minlength="8">
+              <p class="field-error" id="password-error">Password must be at least 8 characters.</p>
+            </div>
+
+            <button type="submit" class="btn-primary" id="btn-step1">Create Account</button>
+          </form>
+
+          <p class="form-footer-link">Already have an account? <a href="https://app.maveninventory.com/login">Sign in</a></p>
+        </div>
+      </div>
+
+      <!-- Step 2 — Your Business -->
+      <div class="wizard-step" id="step-2">
+        <div class="form-container fade-in">
+          <p class="step-indicator">Step 2 of 3</p>
+
+          <div class="form-error-banner" id="step2-error-banner"></div>
+
+          <form id="form-step2" novalidate>
+            <div class="form-group">
+              <label for="company-name">Company name</label>
+              <input type="text" id="company-name" name="company-name" placeholder="Acme Co." autocomplete="organization" required>
+              <p class="field-error" id="company-error">Please enter your company name.</p>
+            </div>
+
+            <button type="submit" class="btn-primary" id="btn-step2">Continue</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Step 3 — Choose Your Plan -->
+      <div class="wizard-step" id="step-3">
+        <div class="fade-in">
+          <p class="step-indicator">Step 3 of 3</p>
+
+          <div class="form-error-banner" id="step3-error-banner" style="max-width: 720px; margin-left: auto; margin-right: auto; margin-bottom: 1.5rem;"></div>
+
+          <div class="pricing-grid">
+
+            <!-- Growth -->
+            <div class="pricing-card" id="card-growth">
+              <h2>Growth</h2>
+              <span class="price-original">$299/mo</span>
+              <div class="price">$99<span>/mo</span></div>
+              <div class="audience">For emerging brands</div>
+              <div class="divider"></div>
+              <ul>
+                <li>Average cost tracking</li>
+                <li>Multi-location inventory</li>
+                <li>1 integration included (+$50/mo each additional)</li>
+                <li>Automated settlement reconciliation</li>
+                <li>Moving &amp; seasonal average forecasting</li>
+                <li>Reorder &amp; transfer recommendations</li>
+                <li>AI Agent</li>
+                <li>Unlimited users, products, and orders</li>
+              </ul>
+              <button type="button" class="btn-ghost-card" id="btn-growth" onclick="selectPlan('growth')">Select Growth</button>
+            </div>
+
+            <!-- Scale -->
+            <div class="pricing-card highlighted" id="card-scale">
+              <div class="popular-badge">Most Popular</div>
+              <h2>Scale</h2>
+              <span class="price-original">$599/mo</span>
+              <div class="price">$249<span>/mo</span></div>
+              <div class="audience">For scaling operators</div>
+              <div class="divider"></div>
+              <ul>
+                <li class="tier-label">Everything in Growth, plus:</li>
+                <li>Full FIFO costing</li>
+                <li>2 integrations included (+$50/mo each additional)</li>
+                <li>AI-powered demand forecasting</li>
+                <li>Cash flow forecasting</li>
+              </ul>
+              <button type="button" class="btn-primary-card" id="btn-scale" onclick="selectPlan('scale')">Select Scale</button>
+            </div>
+
+          </div>
+
+          <p class="plan-footer-link">Need a custom plan? <a href="mailto:rob@raincitybrands.com">Contact sales</a></p>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <!-- ── Footer ── -->
+  <div class="grad-footer">
+    <footer>
+      <div class="footer-inner">
+        <ul class="footer-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/pricing">Pricing</a></li>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="mailto:rob@raincitybrands.com">Contact</a></li>
+        </ul>
+        <p class="footer-copy">&copy; 2026 Rain City Brands LLC. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ── Supabase SDK ── -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1/dist/umd/supabase.min.js"></script>
+
+  <!-- ── App logic ── -->
+  <script>
+    // ── Supabase init ──
+    var SUPABASE_URL = 'https://bwyqymjabpxueqrrnnle.supabase.co';
+    var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ3eXF5bWphYnB4dWVxcnJubmxlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzMzMjA5NjIsImV4cCI6MjA0ODg5Njk2Mn0.GXICBkBR24dExC_jj5MtfRRDFZW3JFajm1GqxMcBiHM';
+    var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // ── Stripe price IDs (placeholders) ──
+    var GROWTH_PRICE_ID = 'price_growth_placeholder';
+    var SCALE_PRICE_ID = 'price_scale_placeholder';
+
+    // ── State ──
+    var workspaceId = null;
+
+    // ── DOM helpers ──
+    function showStep(num) {
+      var steps = document.querySelectorAll('.wizard-step');
+      steps.forEach(function (step) {
+        step.classList.remove('active');
+      });
+      var target = document.getElementById('step-' + num);
+      if (target) {
+        target.classList.add('active');
+        // Trigger fade-in for the new step's content
+        var fadeEls = target.querySelectorAll('.fade-in');
+        fadeEls.forEach(function (el) {
+          el.classList.remove('visible');
+          // Force reflow so animation replays
+          void el.offsetWidth;
+          el.classList.add('visible');
+        });
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function showFieldError(inputId, errorId) {
+      var input = document.getElementById(inputId);
+      var error = document.getElementById(errorId);
+      if (input) input.classList.add('input-error');
+      if (error) error.classList.add('visible');
+    }
+
+    function clearFieldError(inputId, errorId) {
+      var input = document.getElementById(inputId);
+      var error = document.getElementById(errorId);
+      if (input) input.classList.remove('input-error');
+      if (error) error.classList.remove('visible');
+    }
+
+    function showBannerError(bannerId, message) {
+      var banner = document.getElementById(bannerId);
+      if (banner) {
+        banner.textContent = message;
+        banner.classList.add('visible');
+      }
+    }
+
+    function hideBannerError(bannerId) {
+      var banner = document.getElementById(bannerId);
+      if (banner) {
+        banner.textContent = '';
+        banner.classList.remove('visible');
+      }
+    }
+
+    function setButtonLoading(btnId, isLoading, loadingText) {
+      var btn = document.getElementById(btnId);
+      if (!btn) return;
+      if (isLoading) {
+        btn.disabled = true;
+        btn.setAttribute('data-original-text', btn.textContent);
+        btn.innerHTML = '<span class="spinner"></span>' + loadingText;
+      } else {
+        btn.disabled = false;
+        btn.textContent = btn.getAttribute('data-original-text') || btn.textContent;
+      }
+    }
+
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    // ── Step 1: Create Account ──
+    document.getElementById('form-step1').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      // Clear previous errors
+      clearFieldError('email', 'email-error');
+      clearFieldError('password', 'password-error');
+      hideBannerError('step1-error-banner');
+
+      var email = document.getElementById('email').value.trim();
+      var password = document.getElementById('password').value;
+
+      var hasError = false;
+
+      if (!email || !isValidEmail(email)) {
+        showFieldError('email', 'email-error');
+        hasError = true;
+      }
+
+      if (!password || password.length < 8) {
+        showFieldError('password', 'password-error');
+        hasError = true;
+      }
+
+      if (hasError) return;
+
+      setButtonLoading('btn-step1', true, 'Creating account...');
+
+      try {
+        var result = await sb.auth.signUp({ email: email, password: password });
+        if (result.error) {
+          showBannerError('step1-error-banner', result.error.message);
+          setButtonLoading('btn-step1', false);
+          return;
+        }
+        setButtonLoading('btn-step1', false);
+        showStep(2);
+      } catch (err) {
+        showBannerError('step1-error-banner', 'An unexpected error occurred. Please try again.');
+        setButtonLoading('btn-step1', false);
+      }
+    });
+
+    // ── Step 2: Your Business ──
+    document.getElementById('form-step2').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      // Clear previous errors
+      clearFieldError('company-name', 'company-error');
+      hideBannerError('step2-error-banner');
+
+      var companyName = document.getElementById('company-name').value.trim();
+
+      if (!companyName) {
+        showFieldError('company-name', 'company-error');
+        return;
+      }
+
+      setButtonLoading('btn-step2', true, 'Setting up workspace...');
+
+      try {
+        var result = await sb.rpc('create_workspace_with_owner', { p_name: companyName });
+        if (result.error) {
+          showBannerError('step2-error-banner', result.error.message);
+          setButtonLoading('btn-step2', false);
+          return;
+        }
+        workspaceId = result.data;
+        setButtonLoading('btn-step2', false);
+        showStep(3);
+      } catch (err) {
+        showBannerError('step2-error-banner', 'An unexpected error occurred. Please try again.');
+        setButtonLoading('btn-step2', false);
+      }
+    });
+
+    // ── Step 3: Select plan → Stripe checkout ──
+    async function selectPlan(plan) {
+      var selectedPriceId = plan === 'growth' ? GROWTH_PRICE_ID : SCALE_PRICE_ID;
+      var btnId = plan === 'growth' ? 'btn-growth' : 'btn-scale';
+      var loadingText = plan === 'growth' ? 'Redirecting...' : 'Redirecting...';
+
+      hideBannerError('step3-error-banner');
+      setButtonLoading(btnId, true, loadingText);
+
+      try {
+        var session = await sb.auth.getSession();
+
+        if (!session.data.session) {
+          showBannerError('step3-error-banner', 'Your session has expired. Please sign in again.');
+          setButtonLoading(btnId, false);
+          return;
+        }
+
+        var res = await fetch(SUPABASE_URL + '/functions/v1/create-checkout-session', {
+          method: 'POST',
+          headers: {
+            'Authorization': 'Bearer ' + session.data.session.access_token,
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_ANON_KEY
+          },
+          body: JSON.stringify({ workspace_id: workspaceId, price_id: selectedPriceId })
+        });
+
+        var result = await res.json();
+
+        if (result.success) {
+          window.location.href = result.data.checkout_url;
+        } else {
+          showBannerError('step3-error-banner', result.error || 'Failed to create checkout session. Please try again.');
+          setButtonLoading(btnId, false);
+        }
+      } catch (err) {
+        showBannerError('step3-error-banner', 'An unexpected error occurred. Please try again.');
+        setButtonLoading(btnId, false);
+      }
+    }
+
+    // ── Clear field errors on input ──
+    document.getElementById('email').addEventListener('input', function () {
+      clearFieldError('email', 'email-error');
+      hideBannerError('step1-error-banner');
+    });
+
+    document.getElementById('password').addEventListener('input', function () {
+      clearFieldError('password', 'password-error');
+      hideBannerError('step1-error-banner');
+    });
+
+    document.getElementById('company-name').addEventListener('input', function () {
+      clearFieldError('company-name', 'company-error');
+      hideBannerError('step2-error-banner');
+    });
+
+    // ── URL param handling ──
+    document.addEventListener('DOMContentLoaded', async function () {
+      // Fade-in for the initially visible step
+      var els = document.querySelectorAll('.fade-in');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('visible'); });
+      } else {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.02 });
+        els.forEach(function (el) { observer.observe(el); });
+      }
+
+      // Check URL params
+      var params = new URLSearchParams(window.location.search);
+      var planParam = params.get('plan');
+      var stepParam = params.get('step');
+
+      // If step=plan, user is returning (e.g. canceled Stripe checkout)
+      // They should already be authenticated, so jump to step 3
+      if (stepParam === 'plan') {
+        // Verify they have a valid session
+        var session = await sb.auth.getSession();
+        if (session.data.session) {
+          showStep(3);
+        }
+      }
+
+      // Pre-highlight plan card based on ?plan= param
+      if (planParam === 'growth') {
+        // Swap highlighting: remove from Scale, add to Growth
+        document.getElementById('card-scale').classList.remove('highlighted');
+        document.getElementById('card-growth').classList.add('highlighted');
+        // Swap button styles
+        document.getElementById('btn-growth').className = 'btn-primary-card';
+        document.getElementById('btn-growth').textContent = 'Select Growth';
+        document.getElementById('btn-scale').className = 'btn-ghost-card';
+        document.getElementById('btn-scale').textContent = 'Select Scale';
+      }
+      // scale is already highlighted by default, but reinforce if param is explicit
+      if (planParam === 'scale') {
+        document.getElementById('card-scale').classList.add('highlighted');
+        document.getElementById('card-growth').classList.remove('highlighted');
+        document.getElementById('btn-scale').className = 'btn-primary-card';
+        document.getElementById('btn-scale').textContent = 'Select Scale';
+        document.getElementById('btn-growth').className = 'btn-ghost-card';
+        document.getElementById('btn-growth').textContent = 'Select Growth';
+      }
+    });
+  </script>
+
+</body>
+</html>
