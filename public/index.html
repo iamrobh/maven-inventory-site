@@ -382,6 +382,15 @@
       line-height: 1.2;
     }
 
+    .hero-stat .number-original {
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      color: var(--slate-500);
+      text-decoration: line-through;
+      display: block;
+      margin-bottom: -0.25rem;
+    }
+
     .hero-stat .label {
       font-size: 0.8rem;
       color: var(--slate-500);
@@ -576,6 +585,32 @@
     }
 
     /* ── Responsive ── */
+    @media (max-width: 480px) {
+      .container { padding: 0 1.25rem; }
+      .hero { padding-top: 6rem; padding-bottom: 3.5rem; }
+      .hero h1 { font-size: 2.1rem; }
+      .hero p { font-size: 0.95rem; margin-bottom: 2rem; }
+      .hero-badge { font-size: 0.72rem; padding: 0.35rem 1rem; margin-bottom: 2rem; }
+      .hero-ctas { margin-bottom: 3rem; }
+      .btn-primary, .btn-ghost { padding: 0.75rem 1.75rem; font-size: 0.9rem; }
+      .hero-stats { gap: 1.5rem; }
+      .hero-stat .number { font-size: 1.5rem; }
+      .hero-stat .label { font-size: 0.7rem; }
+      .problem h2 { font-size: 1.75rem; }
+      .problem p { font-size: 1rem; }
+      .feature-name { font-size: 1.2rem; }
+      .feature-desc { font-size: 0.95rem; }
+      .comparison-number { font-size: 4rem; }
+      .comparison-subtitle { font-size: 1rem; }
+      .comparison-table th,
+      .comparison-table td { padding: 0.75rem 0.75rem; font-size: 0.85rem; }
+      .cta-section h2 { font-size: 1.85rem; }
+      .cta-section p { font-size: 1rem; }
+      .footer-links { gap: 1.25rem; }
+      .footer-links a { font-size: 0.85rem; }
+      .problem, .features, .comparison, .cta-section { padding: 4rem 0; }
+    }
+
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .nav-links.open {
@@ -671,6 +706,7 @@
         <span class="label">Users</span>
       </div>
       <div class="hero-stat">
+        <span class="number-original">$299/mo</span>
         <span class="number">$99/mo</span>
         <span class="label">Starting Price</span>
       </div>

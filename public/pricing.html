@@ -357,6 +357,16 @@
       color: var(--slate-500);
     }
 
+    .pricing-card .price-original {
+      font-family: var(--font-sans);
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--slate-500);
+      text-decoration: line-through;
+      display: block;
+      margin-bottom: -0.25rem;
+    }
+
     .pricing-card .audience {
       font-size: 0.9rem;
       color: var(--teal);
@@ -525,6 +535,23 @@
     }
 
     /* ── Responsive ── */
+    @media (max-width: 480px) {
+      .container { padding: 0 1.25rem; }
+      .page-header { padding-top: 6rem; padding-bottom: 1rem; }
+      .page-header h1 { font-size: 1.85rem; }
+      .page-header p { font-size: 1rem; }
+      .pricing-card { padding: 2rem 1.5rem; }
+      .pricing-card .price { font-size: 2.25rem; }
+      .pricing-card li { font-size: 0.9rem; }
+      .btn-primary-card, .btn-ghost-card { padding: 0.75rem 1.5rem; font-size: 0.9rem; }
+      .faq-section h2 { font-size: 1.5rem; }
+      .faq-item h3 { font-size: 1.05rem; }
+      .faq-item p { font-size: 0.9rem; }
+      .annual-badge { font-size: 0.78rem; padding: 0.4rem 1rem; }
+      .footer-links { gap: 1.25rem; }
+      .footer-links a { font-size: 0.85rem; }
+    }
+
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .nav-links.open {
@@ -565,6 +592,10 @@
 
       .faq-section h2 {
         font-size: 1.75rem;
+      }
+
+      .faq-item {
+        padding: 1.5rem 0;
       }
     }
 
@@ -621,6 +652,7 @@
       <!-- Growth -->
       <div class="pricing-card fade-in">
         <h2>Growth</h2>
+        <span class="price-original">$299/mo</span>
         <div class="price">$99<span>/mo</span></div>
         <div class="audience">For brands $500K &ndash; $5M</div>
         <div class="divider"></div>
@@ -641,6 +673,7 @@
       <div class="pricing-card highlighted fade-in">
         <div class="popular-badge">Most Popular</div>
         <h2>Scale</h2>
+        <span class="price-original">$599/mo</span>
         <div class="price">$249<span>/mo</span></div>
         <div class="audience">For brands $3M &ndash; $20M</div>
         <div class="divider"></div>
