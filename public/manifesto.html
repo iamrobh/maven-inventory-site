@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <title>Manifesto — Maven Inventory</title>
+  <meta name="description" content="Why we built Maven Inventory. Built by operators, for operators.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --teal: #14B8A6;
+      --teal-dark: #0d9488;
+      --teal-glow: rgba(20, 184, 166, 0.12);
+      --slate-950: #020617;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-400: #94a3b8;
+      --slate-300: #cbd5e1;
+      --slate-200: #e2e8f0;
+      --white: #f1f5f9;
+      --font-serif: 'DM Serif Display', Georgia, serif;
+      --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--slate-950);
+      color: var(--slate-300);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+
+    /* ── Gradient scroll zones ── */
+    .grad-header {
+      background: linear-gradient(to bottom, #020617, #0f172a);
+    }
+    .grad-content {
+      background: linear-gradient(to bottom, #0f172a, #0d2b3a, #0a2530);
+    }
+    .grad-cta {
+      background: linear-gradient(to bottom, #0a2530, #081e28, #0f172a);
+    }
+    .grad-footer {
+      background: #0f172a;
+    }
+
+    /* ── Teal-tinted text for content zone ── */
+    .grad-content h2 {
+      color: #e2f0f0;
+    }
+    .grad-content p {
+      color: #7ab0b0;
+    }
+    .grad-content .rule {
+      border-top-color: #1a3a4a;
+    }
+    .grad-content .manifesto-highlight {
+      color: #e2f0f0;
+    }
+
+    /* ── CTA zone ── */
+    .grad-cta h2 {
+      color: #e8f2f2;
+    }
+    .grad-cta p {
+      color: #7ab0b0;
+    }
+    .grad-cta .rule {
+      border-top-color: #1a3a4a;
+    }
+
+    /* ── Footer zone ── */
+    .grad-footer footer {
+      border-top-color: #1a3a4a;
+    }
+    .grad-footer .footer-links a {
+      color: #4a8a8a;
+    }
+    .grad-footer .footer-links a:hover {
+      color: var(--teal);
+    }
+    .grad-footer .footer-copy {
+      color: #2a5a5a;
+    }
+
+    /* Grain texture overlay */
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 256px 256px;
+    }
+
+    /* ── Fade-in animation ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--slate-500);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── Thin rule ── */
+    .rule {
+      border: none;
+      border-top: 1px solid var(--slate-700);
+      margin: 0;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      color: var(--white);
+      text-decoration: none;
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-brand span { color: var(--teal); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--slate-400);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--slate-400);
+      margin: 5px 0;
+      transition: 0.2s;
+    }
+
+    /* ── Container ── */
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── Page Header ── */
+    .page-header {
+      padding-top: 8rem;
+      padding-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-family: var(--font-serif);
+      font-size: 3.5rem;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.12;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ── Manifesto content ── */
+    .manifesto {
+      padding-top: 4rem;
+      padding-bottom: 6rem;
+    }
+
+    .manifesto-inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .manifesto-inner h2 {
+      font-family: var(--font-serif);
+      font-size: 1.75rem;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.25;
+      margin-top: 3.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .manifesto-inner h2:first-child {
+      margin-top: 0;
+    }
+
+    .manifesto-inner p {
+      font-size: 1.05rem;
+      color: var(--slate-400);
+      line-height: 1.85;
+      font-weight: 300;
+      margin-bottom: 1.5rem;
+    }
+
+    .manifesto-inner p:last-child {
+      margin-bottom: 0;
+    }
+
+    .manifesto-highlight {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      color: var(--white);
+      line-height: 1.5;
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    .manifesto-closing {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      color: var(--white) !important;
+      font-weight: 400;
+      text-align: center;
+      margin-top: 3.5rem !important;
+      line-height: 1.4;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      padding-top: 6rem;
+      padding-bottom: 8rem;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-family: var(--font-serif);
+      font-size: 2.5rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      color: var(--slate-400);
+      margin-bottom: 2.5rem;
+      font-size: 1.1rem;
+      font-weight: 300;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--teal);
+      color: var(--slate-950);
+      padding: 0.85rem 2.25rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover {
+      background: var(--teal-dark);
+      transform: translateY(-1px);
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--slate-700);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: var(--slate-500);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--teal); }
+
+    .footer-copy {
+      color: var(--slate-600);
+      font-size: 0.8rem;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      .page-header h1 { font-size: 2.25rem; }
+      .manifesto-inner h2 { font-size: 1.4rem; }
+      .manifesto-inner p { font-size: 0.95rem; }
+      .manifesto-highlight { font-size: 1.15rem; }
+      .manifesto-closing { font-size: 1.25rem; }
+      .cta-section h2 { font-size: 1.85rem; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: rgba(15, 23, 42, 0.97);
+        border-bottom: 1px solid var(--slate-700);
+        padding: 1.5rem 2rem;
+        gap: 1.25rem;
+      }
+      .nav-toggle { display: block; }
+
+      .page-header {
+        padding-top: 7rem;
+      }
+
+      .page-header h1 {
+        font-size: 2.5rem;
+      }
+
+      .manifesto {
+        padding-top: 3rem;
+        padding-bottom: 4rem;
+      }
+
+      .cta-section {
+        padding-top: 4rem;
+        padding-bottom: 5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">Maven <span>Inventory</span></a>
+      <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="/#features">Features</a></li>
+        <li><a href="/manifesto">Manifesto</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── Header ── -->
+  <div class="grad-header">
+  <div class="page-header container fade-in">
+    <p class="section-label">Manifesto</p>
+    <h1>The Maven Manifesto</h1>
+  </div>
+  </div>
+
+  <!-- ── Content ── -->
+  <div class="grad-content">
+  <section class="container">
+    <hr class="rule">
+  </section>
+  <section class="manifesto container">
+    <div class="manifesto-inner">
+
+      <p class="fade-in">We believe inventory software should get cheaper relative to your business as you grow, not more expensive. We believe the tools you depend on should tell you the truth, not a comfortable approximation. And we believe the people who build inventory software should have actually managed inventory.</p>
+
+      <h2 class="fade-in">We built Maven because nothing else worked the way it should.</h2>
+
+      <p class="fade-in">Like you, we run e-commerce brands. We've sat through month-end reconciliation trying to figure out why the numbers don't match. We've watched landed costs jump overnight because of tariffs and reacted too slowly when recalculating CAC targets. We've stocked out on best sellers because the forecast was a gut feel, and sat on excess inventory because we ordered too much of the wrong thing.</p>
+
+      <p class="fade-in">The tools that exist today run on decade-old tech stacks that are expensive to operate. Per-user fees, per-order fees, revenue percentages. Not because serving another user costs them anything meaningful, but because legacy infrastructure is expensive and VC investors need returns. They scale your bill alongside your success. They fund large sales teams and sponsor conferences to plaster their logos on keynote stages. Someone pays for all of that. It's you.</p>
+
+      <h2 class="fade-in">We reject that model.</h2>
+
+      <p class="fade-in">Maven is intentionally small. We grow through word of mouth. We put money into the product, not the marketing budget. Our pricing isn't low because the quality is less. It's low because we don't carry the overhead. Flat rate. Whole team included. Order volume irrelevant.</p>
+
+      <h2 class="fade-in">We believe accuracy is non-negotiable.</h2>
+
+      <p class="fade-in">Most inventory systems will tell you how many units you should have. But Amazon loses stock, shipments arrive short, warehouse counts drift. These discrepancies silently accumulate until someone does a manual count and the numbers are off by thousands of dollars. On the cost side, most platforms hand you an average and call it done.</p>
+
+      <p class="fade-in">Maven is built with the rigor of an accounting ledger. Every unit in, every unit out, every cost has to balance. When something doesn't add up, the system catches it. AI automates the reconciliation, surfaces what's off, and proposes the fix. You just confirm.</p>
+
+      <p class="fade-in manifesto-highlight">Real FIFO cost tracking. Real inventory counts that balance. Real profitability per product and channel.</p>
+
+      <h2 class="fade-in">We believe software should be built by the people who need it.</h2>
+
+      <p class="fade-in">Maven was not designed by product managers reading case studies. Every feature exists because we needed it. Every workflow reflects how operators actually think.</p>
+
+      <p class="fade-in">If you've ever closed the books and thought "I don't trust these numbers," this is for you. If you've ever stocked out on a best seller you should have planned for, this is for you. If you've ever added up what you're paying per user just so your warehouse team can log in, this is for you.</p>
+
+      <p class="fade-in manifesto-closing">This is Maven. Built by operators, for operators.</p>
+
+    </div>
+  </section>
+  </div>
+
+  <!-- ── CTA ── -->
+  <div class="grad-cta">
+  <section class="container">
+    <hr class="rule">
+  </section>
+  <section class="cta-section container fade-in">
+    <h2>See it for yourself.</h2>
+    <p>30 days free, cancel anytime.</p>
+    <a href="/signup" class="btn-primary">Start Free Trial</a>
+  </section>
+  </div>
+
+  <!-- ── Footer ── -->
+  <div class="grad-footer">
+  <footer>
+    <div class="footer-inner">
+      <ul class="footer-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="mailto:rob@raincitybrands.com">Contact</a></li>
+        <li><a href="https://app.maveninventory.com/login">Sign In</a></li>
+      </ul>
+      <p class="footer-copy">&copy; 2026 Rain City Brands LLC. All rights reserved.</p>
+    </div>
+  </footer>
+  </div>
+
+  <!-- ── Scroll animations ── -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var els = document.querySelectorAll('.fade-in');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('visible'); });
+        return;
+      }
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.02 });
+      els.forEach(function (el) { observer.observe(el); });
+    });
+  </script>
+
+</body>
+</html>
