@@ -254,8 +254,8 @@
 
     /* ── Page Header ── */
     .page-header {
-      padding-top: 10rem;
-      padding-bottom: 2rem;
+      padding-top: 8rem;
+      padding-bottom: 1.5rem;
       text-align: center;
     }
 
@@ -279,7 +279,7 @@
     /* ── Annual callout ── */
     .annual-callout {
       text-align: center;
-      padding: 2rem 2rem 0;
+      padding: 1.5rem 2rem 0;
     }
 
     .annual-badge {
@@ -584,10 +584,6 @@
         margin: 0 auto;
       }
 
-      .pricing-card.highlighted {
-        order: -1;
-      }
-
       .faq-section {
         padding: 4rem 0 5rem;
       }
@@ -606,10 +602,6 @@
         grid-template-columns: 1fr;
         max-width: 420px;
         margin: 0 auto;
-      }
-
-      .pricing-card.highlighted {
-        order: -1;
       }
     }
   </style>
@@ -775,7 +767,7 @@
             observer.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.15 });
+      }, { threshold: 0.02 });
       els.forEach(function (el) { observer.observe(el); });
     });
   </script>
