@@ -232,6 +232,20 @@
 
     .nav-brand span { color: var(--teal); }
 
+    .nav-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+
+    .nav-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: block;
+      flex-shrink: 0;
+    }
+
     .nav-links {
       display: flex;
       align-items: center;
@@ -670,7 +684,7 @@
   <!-- ── Navigation ── -->
   <nav>
     <div class="nav-inner">
-      <a href="/" class="nav-brand">Maven <span>Inventory</span></a>
+      <a href="/" class="nav-brand"><img src="/favicon-192x192.png" alt="" width="28" height="28" class="nav-mark">Maven <span>Inventory</span></a>
       <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')">
         <span></span><span></span><span></span>
       </button>
