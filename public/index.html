@@ -232,6 +232,20 @@
 
     .nav-brand span { color: var(--teal); }
 
+    .nav-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+
+    .nav-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: block;
+      flex-shrink: 0;
+    }
+
     .nav-links {
       display: flex;
       align-items: center;
@@ -670,12 +684,13 @@
   <!-- ── Navigation ── -->
   <nav>
     <div class="nav-inner">
-      <a href="/" class="nav-brand">Maven <span>Inventory</span></a>
+      <a href="/" class="nav-brand"><img src="/favicon-192x192.png" alt="" width="28" height="28" class="nav-mark">Maven <span>Inventory</span></a>
       <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')">
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-links">
         <li><a href="#features">Features</a></li>
+        <li><a href="#amazon">Amazon</a></li>
         <li><a href="/manifesto">Manifesto</a></li>
         <li><a href="/pricing">Pricing</a></li>
       </ul>
@@ -770,6 +785,51 @@
   </section>
   </div>
 
+  <!-- ── Amazon Integration ── -->
+  <div class="grad-features">
+  <section class="container">
+    <hr class="rule">
+  </section>
+  <section class="features container" id="amazon">
+    <p class="section-label fade-in">Amazon Integration</p>
+    <p class="feature-desc fade-in" style="margin-bottom: 2.5rem;">Maven Inventory connects directly to your Amazon selling account through the Amazon Selling Partner API. Authorize once and Maven keeps your Amazon data in sync with every other channel you sell on. You can revoke access at any time from your Amazon account.</p>
+    <div class="features-list">
+      <div class="feature-row fade-in">
+        <h3 class="feature-name">Amazon Account &amp; Marketplace Setup</h3>
+        <p class="feature-desc">Maven identifies which Amazon marketplaces your account sells in and configures your workspace accordingly, so regional stock and currency are handled correctly from the first sync.</p>
+      </div>
+      <div class="feature-row fade-in">
+        <h3 class="feature-name">FBA Inventory Visibility</h3>
+        <p class="feature-desc">Maven reads your Fulfillment by Amazon inventory &mdash; fulfillable, reserved, inbound, and unfulfillable quantities &mdash; and displays it alongside your own warehouses, 3PLs, and retail locations in one view. Inbound FBA shipments are tracked from creation through receipt, so in-transit units are never double-counted.</p>
+      </div>
+      <div class="feature-row fade-in">
+        <h3 class="feature-name">Amazon Warehousing &amp; Distribution</h3>
+        <p class="feature-desc">If you use AWD, Maven reads your AWD inventory and includes those units in availability calculations and replenishment planning.</p>
+      </div>
+      <div class="feature-row fade-in">
+        <h3 class="feature-name">Product Catalog Matching</h3>
+        <p class="feature-desc">Maven looks up Amazon catalog records to match your Amazon listings to the correct product in Maven by ASIN, SKU, UPC, or other identifier, so cost history and demand history stay attached to the right item.</p>
+      </div>
+      <div class="feature-row fade-in">
+        <h3 class="feature-name">Listing &amp; Availability Sync</h3>
+        <p class="feature-desc">Maven reads your Amazon listings data and writes updated available quantities back to your Amazon listings, so the availability Amazon shows reflects true multi-location stock. This is your primary control against overselling.</p>
+      </div>
+      <div class="feature-row fade-in">
+        <h3 class="feature-name">Financial Reconciliation</h3>
+        <p class="feature-desc">Maven reads Amazon settlement reports and financial event data to reconcile payouts, fees, and refunds against your own records, feeding accurate margin reporting and cash flow projections.</p>
+      </div>
+      <div class="feature-row fade-in">
+        <h3 class="feature-name">Replenishment &amp; Returns</h3>
+        <p class="feature-desc">Maven reads Amazon restock recommendations and FBA customer returns data to inform reorder timing, reorder quantities, and true sell-through.</p>
+      </div>
+      <div class="feature-row fade-in">
+        <h3 class="feature-name">Your Data Stays Yours</h3>
+        <p class="feature-desc">Maven never pools, aggregates across sellers, resells, or trains models on your Amazon data. Every seller's data is isolated to its own workspace, encrypted at rest and in transit. See our <a href="/privacy">Privacy Policy</a> for details.</p>
+      </div>
+    </div>
+  </section>
+  </div>
+
   <!-- ── Comparison ── -->
   <div class="grad-comparison">
   <section class="container">
@@ -807,6 +867,7 @@
         </tr>
       </tbody>
     </table>
+    <p class="feature-desc" style="text-align: center; font-size: 0.85rem; opacity: 0.7; margin-top: 1.25rem;">Comparison based on each vendor's publicly listed entry-level plan pricing as of August 2026. Pricing is subject to change by each vendor.</p>
   </section>
   </div>
 
