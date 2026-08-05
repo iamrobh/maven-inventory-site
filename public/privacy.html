@@ -117,19 +117,32 @@
       <li><strong>Fulfillment data:</strong> Fulfillment status, tracking information, and return/refund details</li>
     </ul>
 
-    <h3>1.2 Information You Provide Directly</h3>
+    <h3>1.2 Information from the Amazon Selling Partner API</h3>
+    <p>When you connect your Amazon selling account to Maven Inventory, we access the following data through the Amazon Selling Partner API:</p>
+    <ul>
+      <li><strong>Seller account data:</strong> Your marketplace participation and seller account identifiers</li>
+      <li><strong>Inventory data:</strong> Fulfillment by Amazon (FBA) and Amazon Warehousing and Distribution (AWD) inventory quantities, including fulfillable, reserved, inbound, and unfulfillable units</li>
+      <li><strong>Shipment data:</strong> Inbound FBA and AWD shipment records and their status</li>
+      <li><strong>Catalog and listing data:</strong> Amazon catalog records and your listing data, used to match Amazon listings to the correct product in Maven</li>
+      <li><strong>Financial data:</strong> Settlement reports and financial event data, used to reconcile payouts, fees, and refunds</li>
+      <li><strong>Replenishment and returns data:</strong> Amazon restock recommendations and FBA customer returns data</li>
+    </ul>
+    <p><strong>We do not access Amazon buyer personally identifiable information.</strong> Maven does not request Amazon's restricted roles, and therefore does not receive buyer names, buyer contact details, or shipping addresses from Amazon.</p>
+    <p>Amazon authorization credentials are encrypted at rest using AES-256-GCM authenticated encryption with a unique initialization vector per record. Encryption keys are held in a managed secret store and are never stored in source code. You may revoke Maven's access from your Amazon account at any time.</p>
+
+    <h3>1.3 Information You Provide Directly</h3>
     <ul>
       <li><strong>Account information:</strong> Email address and name when you create a Maven Inventory account</li>
       <li><strong>Workspace configuration:</strong> Workspace name, location names, vendor information, and sync settings</li>
     </ul>
 
-    <h3>1.3 Information Collected Automatically</h3>
+    <h3>1.4 Information Collected Automatically</h3>
     <ul>
-      <li><strong>Authentication tokens:</strong> Shopify OAuth access tokens and refresh tokens, stored in encrypted form</li>
-      <li><strong>Sync logs:</strong> Timestamps and metadata about data synchronization events between Shopify and Maven Inventory</li>
+      <li><strong>Authentication tokens:</strong> Shopify OAuth access tokens and Amazon Login with Amazon (LWA) refresh tokens, stored in encrypted form</li>
+      <li><strong>Sync logs:</strong> Timestamps and metadata about data synchronization events between connected sales channels and Maven Inventory</li>
     </ul>
 
-    <h3>1.4 Information We Do Not Collect</h3>
+    <h3>1.5 Information We Do Not Collect</h3>
     <p>We do not place cookies on your customers' browsers, use tracking technologies on your storefront, collect payment card information, or access customer data beyond what is associated with orders.</p>
 
     <h2>2. How We Use Your Information</h2>
@@ -168,6 +181,7 @@
       <li><strong>After account deletion:</strong> When you request account deletion, we delete all associated data within 30 days.</li>
       <li><strong>GDPR shop/redact:</strong> When Shopify sends a shop data erasure request (48 hours after uninstall), we delete all channel connection data associated with your store.</li>
       <li><strong>Sync logs:</strong> Webhook event logs and sync job records are retained for 90 days for troubleshooting, then automatically purged.</li>
+      <li><strong>Amazon data:</strong> Amazon inventory, catalog, listing, shipment, and settlement data is retained only while your account is active, for inventory and accounting continuity. When you revoke Maven's access from your Amazon account or delete your Maven account, all associated Amazon data is deleted within 30 days.</li>
     </ul>
 
     <h2>5. Data Sharing</h2>
@@ -176,8 +190,10 @@
       <li><strong>Supabase:</strong> Our database and authentication infrastructure provider (data processor)</li>
       <li><strong>Vercel:</strong> Our application hosting provider</li>
       <li><strong>Shopify:</strong> We send inventory updates, order status changes, and fulfillment data back to your Shopify store as part of the bidirectional sync</li>
+      <li><strong>Amazon:</strong> We send updated available quantities back to your Amazon listings as part of the inventory sync</li>
+      <li><strong>Anthropic:</strong> Our AI model provider. When you use the AI assistant, the workspace data needed to answer your question &mdash; such as inventory, product, and order records &mdash; is sent to Anthropic's API to generate a response</li>
     </ul>
-    <p>We do not share data with any other third parties. We do not sell personal data.</p>
+    <p>We do not share data with any other third parties. We do not sell personal data. <strong>We never pool or aggregate your data with that of other customers, and we do not use your data to train machine learning models.</strong></p>
 
     <h2>6. Your Rights</h2>
     <p>Depending on your jurisdiction, you may have the following rights regarding your personal data:</p>
