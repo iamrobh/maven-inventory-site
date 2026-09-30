@@ -327,7 +327,9 @@
       background: var(--teal);
       color: var(--slate-950);
       padding: 0.95rem 2rem;
+      border: none;
       border-radius: 6px;
+      cursor: pointer;
       text-decoration: none;
       font-family: var(--font-sans);
       font-weight: 600;
@@ -495,9 +497,9 @@
         <div class="contact-card">
           <p class="section-label">Email</p>
           <h2>Send us a note.</h2>
-          <p>This opens a new message in your mail app, addressed to us. Say as much or as little as you like.</p>
-          <a href="mailto:rob@maveninventory.com?subject=Question%20about%20Maven%20Inventory" class="btn-primary">Email rob@maveninventory.com</a>
-          <p class="contact-address">Or write to <a href="mailto:rob@maveninventory.com">rob@maveninventory.com</a> from anywhere.</p>
+          <p>Copy the address, then email us from wherever you read mail. Say as much or as little as you like.</p>
+          <button type="button" class="btn-primary" id="copy-email" data-email="rob@maveninventory.com">Copy rob@maveninventory.com</button>
+          <p class="contact-address">Or open a draft in your mail app: <a href="mailto:rob@maveninventory.com?subject=Question%20about%20Maven%20Inventory">rob@maveninventory.com</a></p>
         </div>
       </div>
 
@@ -520,6 +522,50 @@
     </div>
   </footer>
   </div>
+
+  <!-- ── Copy address ── -->
+  <script>
+    (function () {
+      var btn = document.getElementById('copy-email');
+      if (!btn) return;
+      var email = btn.getAttribute('data-email');
+      var original = btn.textContent;
+      var timer = null;
+
+      function fallbackCopy(text) {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'absolute';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        var ok = false;
+        try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+        document.body.removeChild(ta);
+        return ok;
+      }
+
+      function show(text) {
+        btn.textContent = text;
+        clearTimeout(timer);
+        timer = setTimeout(function () { btn.textContent = original; }, 2500);
+      }
+
+      btn.addEventListener('click', function () {
+        var done = function () { show('Copied ' + email); };
+        var failed = function () {
+          if (fallbackCopy(email)) done();
+          else show('Copy failed. The address is ' + email);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(email).then(done, failed);
+        } else {
+          failed();
+        }
+      });
+    })();
+  </script>
 
   <!-- ── Scroll animations ── -->
   <script>
